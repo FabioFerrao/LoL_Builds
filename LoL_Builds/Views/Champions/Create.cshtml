@@ -43,7 +43,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Roles:</label>
             <div class="col-md-10">
-                @foreach (ChampRoles roles in ViewBag.listaRoles)
+                @foreach (LoL_Builds.Models.ChampRoles roles in ViewBag.listaRoles)
                 {
 
                     <input type="checkbox" name="checkRole" value="@roles.ID" />

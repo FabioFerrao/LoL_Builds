@@ -20,7 +20,6 @@ namespace LoL_Builds.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
     }
 
     public class VerifyCodeViewModel
@@ -35,8 +34,6 @@ namespace LoL_Builds.Models
 
         [Display(Name = "Remember this browser?")]
         public bool RememberBrowser { get; set; }
-
-        public bool RememberMe { get; set; }
     }
 
     public class ForgotViewModel
@@ -82,6 +79,7 @@ namespace LoL_Builds.Models
 
         public Utilizadores utilizador { get; set; }
     }
+
 
     public class ResetPasswordViewModel
     {

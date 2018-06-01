@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LoL_Builds.Models
 {
@@ -28,14 +28,14 @@ namespace LoL_Builds.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nova Password")]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Password")]
-        [Compare("NewPassword", ErrorMessage = "A nova Password e a confirmação não são iguais.")]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -43,20 +43,21 @@ namespace LoL_Builds.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password Antiga")]
+        [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nova Password")]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Password")]
-        [Compare("NewPassword", ErrorMessage = "A nova Password e a confirmação não são iguais.")]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
 
     public class AddPhoneNumberViewModel
     {
@@ -83,4 +84,5 @@ namespace LoL_Builds.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
 }

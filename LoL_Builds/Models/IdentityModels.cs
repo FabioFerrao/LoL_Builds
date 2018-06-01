@@ -1,13 +1,15 @@
-﻿using System.Data.Entity;
+﻿using LoL_Builds;
+using LoL_Builds.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace LoL_Builds.Models
+namespace LoL_Builds
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -26,6 +28,12 @@ namespace LoL_Builds.Models
         {
         }
 
+        static ApplicationDbContext()
+        {
+            // Set the database intializer which is run once during application start
+            // This seeds the database with admin user credentials and admin role
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
+        }
 
         //ligaçoes 
         public virtual DbSet<Builds> Builds { get; set; }

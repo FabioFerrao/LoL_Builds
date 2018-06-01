@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LoL_Builds.ApplicationUser>
+
+@{
+    ViewBag.Title = "Utilizadores";
+}
+
+<h2 style="color:white">Utilizadores</h2>
+
+<table class="table table-hover" style="color:white">
+    <tr style="background-color:#343434">
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="cursor:pointer;" onclick="location.href='@(Url.Action("Details", "UsersAdmin", new { id = item.Id }))'">
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+
+</table>

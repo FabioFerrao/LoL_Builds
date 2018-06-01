@@ -15,7 +15,8 @@ namespace LoL_Builds
             ConfigureAuth(app);
             IniciaAplicacao();
         }
-        private void IniciaAplicacao() {
+        private void IniciaAplicacao()
+        {
             ApplicationDbContext db = new ApplicationDbContext();
             var utilizador = new Utilizadores();
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
@@ -40,7 +41,7 @@ namespace LoL_Builds
                 role.Name = "Moderador";
                 roleManager.Create(role);
             }
-        
+
             // criar um utilizador 'Administrador'
             var user = new ApplicationUser();
             user.UserName = "admin@admin.com";
@@ -53,7 +54,6 @@ namespace LoL_Builds
             utilizador.DataNascimento = new DateTime(1993, 10, 01);
             utilizador.Genero = "Masculino";
             utilizador.UserName = user.UserName;
-
             db.Utilizadores.Add(utilizador);
 
             //Adicionar o Utilizador à respetiva Role-Utilizador-
@@ -66,4 +66,3 @@ namespace LoL_Builds
         }
     }
 }
-

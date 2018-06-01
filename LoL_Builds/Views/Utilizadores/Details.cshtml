@@ -22,7 +22,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DataNascimento)
+            @*@Html.DisplayFor(model => model.DataNascimento)*@
+            @Convert.ToDateTime(Model.DataNascimento).ToString("dd/MM/yyyy")
         </dd>
 
         <dt>
