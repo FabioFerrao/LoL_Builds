@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LoL_Builds.Models.Champions>
+
+@{
+    ViewBag.Title = "Champions";
+}
+
+<h2 style="color:white">@ViewBag.Title</h2>
+@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+{
+    <p>
+        @Html.ActionLink("Criar Novo", "Create", null, new { @class = "btn btn-default" })
+    </p>
+}
+<div class="row">
+    @foreach (var champion in Model)
+    {
+        <div class="container col-md-2 text-center" style="padding-bottom:35px">
+
+            <div class="thumbnail thumbChampions" style="background-color :#bfbfbf;">
+
+                @* IMAGEM DO CHAMPION *@
+                <a style="cursor:pointer;" href="@Url.Action("Details", "Champions", new { id = champion.ID })">
+                    <img class="img-thumbnail" src="~/Imagens/Champions/@champion.Imagem" />
+                </a>
+                @* NOME DO CHAMPION *@
+                <div class="container">
+                    <div class="h4 text-primary">
+                        <h4>
+                            @Html.DisplayFor(modelChampions => champion.Nome)
+                        </h4>
+                    </div>
+                </div>
+
+                @* ROLES DO CHAMPION *@
+                <div style="height:70px;font-weight:bold; color:#224362">
+                    @foreach (var cRoles in champion.ChampRoles)
+                    {
+                        <div class="p">
+                            <a href="@Url.Action("Details", "ChampRoles", new { id = cRoles.ID })">
+                                @Html.DisplayFor(c => cRoles.Role)
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

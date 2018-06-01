@@ -1,0 +1,114 @@
+﻿@model LoL_Builds.Models.Builds
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Nome);
+    var champ = Model.Champion;
+}
+
+<h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
+
+<div class="row">
+    <br />
+    <div class="container col-md-2 text-center" style="padding-bottom:35px">
+
+        <div class="thumbnail thumbChampions" style="background-color :#bfbfbf;">
+
+            @* IMAGEM DO CHAMPION *@
+            <a style="cursor:pointer;" href="@Url.Action("Details", "Champions", new { id = @champ.ID })">
+                <img class="img-thumbnail" src="~/Imagens/Champions/@champ.Imagem" />
+            </a>
+
+            @* NOME DO CHAMPION *@
+            <div class="container">
+                <div class="h4 text-primary">
+                    <h4>
+                        @Html.DisplayFor(modelChampions => champ.Nome)
+                    </h4>
+                </div>
+            </div>
+
+            @* ROLES DO CHAMPION *@
+            <div style="height:70px;font-weight:bold; color:#224362">
+                @foreach (var cRoles in champ.ChampRoles)
+                {
+                    <div class="p">
+                        <a href="@Url.Action("Details", "ChampRoles", new { id = cRoles.ID })">
+                            @Html.DisplayFor(c => cRoles.Role)
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="display:flex">
+    <h3 style="color: white;">Items:</h3>
+    @foreach (var item in Model.Items)
+    {
+
+        <div class="col-4 thumbnail" style="margin-right:10px;margin-bottom:10px; background-color :#bfbfbf;">
+            <a href="@Url.Action("Details", "Items", new { id = item.ID })">
+                <img src="~/Imagens/Items/@item.Imagem" />
+                @Html.DisplayFor(i => item.Nome)
+            </a>
+        </div>
+    }
+</div>
+
+@{
+    if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))
+    {
+        <div class="row">
+            <a class="btn btn-default" href=@Url.Action("Index", "Builds")>Voltar às Builds</a>
+        </div>
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div style="color:white">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Champion.Nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Champion.Nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+
+        </dl>
+    </div>
+    @if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Voltar às Builds", "Index", null, new { @class = "btn btn-default" })
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Voltar às Builds", "Index", null, new { @class = "btn btn-default" })
+        </p>
+    }*@

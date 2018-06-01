@@ -1,0 +1,70 @@
+﻿@model LoL_Builds.Models.Items
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Nome);
+}
+
+<h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal" style="color:white">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <br />
+        <dt style="margin-top:20px">
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+
+        <dd>
+            <img src="~/Imagens/Items/@Model.Imagem" class="img-thumbnail imgItems" id="imagemItem" />
+        </dd>
+        <br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Builds)
+        </dt>
+        <dd>
+            @* Builds Associadas ao Item *@
+            <div style="height:70px;font-weight:bold; color:#224362">
+                @foreach (var build in Model.Builds)
+                {
+                    <div class="p">
+                        <a href="@Url.Action("Details", "Builds", new { id = build.ID })">
+                            @Html.DisplayFor(c => build.Nome)
+                        </a>
+                    </div>
+                }
+            </div>
+        </dd>
+
+    </dl>
+</div>
+@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+{
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" }) |
+        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+    </p>
+}

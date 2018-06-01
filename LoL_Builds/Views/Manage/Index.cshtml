@@ -1,0 +1,21 @@
+﻿@model LoL_Builds.Models.IndexViewModel
+@{
+    ViewBag.Title = "Definições";
+}
+
+<h2 style="color:white">@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div style="color:white">
+    <hr />
+    <div>
+        @Html.Action("UtilizadoresDetails", "Utilizadores", new { id = Session["idUtilizador"] })
+    </div>
+    <h4 class="dl-horizontal">
+        @if (Model.HasPassword)
+        {
+            @Html.ActionLink("Alterar Password", "ChangePassword", null, new { @class = "btn btn-default" })
+        }
+    </h4>
+
+</div>

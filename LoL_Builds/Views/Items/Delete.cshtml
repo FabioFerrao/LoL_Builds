@@ -1,0 +1,46 @@
+﻿@model LoL_Builds.Models.Items
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Nome);
+}
+
+<h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
+
+<h3 style="color:white">Tem a certeza que quer eliminar @Html.DisplayFor(model => model.Nome)?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal" style="color:white">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+        <dd>
+            <img src="~/Imagens/Items/@Model.Imagem" class="img-thumbnail imgItems" id="imagemItem" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Eliminar" style="color:black" class="btn btn-danger" /> |
+        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+    </div>
+    }
+</div>

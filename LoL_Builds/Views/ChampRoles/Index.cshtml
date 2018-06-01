@@ -1,0 +1,32 @@
+﻿@model IEnumerable<LoL_Builds.Models.ChampRoles>
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+
+<h2 style="color:white">Roles</h2>
+
+<table class="table table-hover" style="color:white">
+    <tr style="background-color:#343434">
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="cursor:pointer;" onclick="location.href='@(Url.Action("Details", "ChampRoles", new { id = item.ID }))'">
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new {@class="btn btn-default" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

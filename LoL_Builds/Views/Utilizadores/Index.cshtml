@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LoL_Builds.Models.Utilizadores>
+
+@{
+    ViewBag.Title = "Utilizadores";
+}
+
+<h2 style="color:white">Utilizadores</h2>
+
+<table class="table table-hover" style="color:white">
+    <tr style="background-color:#343434">
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataNascimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr style="cursor:pointer;" onclick="location.href='@(Url.Action("Details", "Utilizadores", new { id = item.ID }))'">
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Convert.ToDateTime(item.DataNascimento).ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+    </tr>
+    }
+</table>

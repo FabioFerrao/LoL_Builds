@@ -1,0 +1,40 @@
+﻿@model LoL_Builds.Models.Builds
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Nome);
+}
+
+<h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
+
+<h3 style="color:white">Tem a certeza que quer eliminar @Html.DisplayFor(model => model.Nome)?</h3>
+<div style="color:white">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Champion.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Champion.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        @Html.ActionLink("Voltar às Builds", "Index", null, new { @class = "btn btn-default" })
+    </div>
+    }
+</div>

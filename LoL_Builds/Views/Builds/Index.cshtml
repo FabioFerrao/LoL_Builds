@@ -1,0 +1,49 @@
+﻿@model IEnumerable<LoL_Builds.Models.Builds>
+
+@{
+    ViewBag.Title = "Builds";
+}
+
+<h2 style="color:white">Builds</h2>
+
+@if (Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Criar Build", "Create", null, new { @class = "btn btn-default" })
+    </p>
+}
+<table class="table table-hover" style="color:white">
+    <tr style="background-color:#343434">
+        <th>
+            @Html.DisplayNameFor(model => model.Champion.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="cursor:pointer;" onclick="location.href='@(Url.Action("Details", "Builds", new { id = item.ID }))'">
+            <td>
+                @Html.DisplayFor(modelItem => item.Champion.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+                {
+                    <p>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-default" }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                    </p>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

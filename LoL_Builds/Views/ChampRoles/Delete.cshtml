@@ -1,0 +1,32 @@
+﻿@model LoL_Builds.Models.ChampRoles
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Role);
+}
+
+<h2 style="color:white">@Html.DisplayFor(model => model.Role)</h2>
+
+<h3 style="color:white">Tem a certeza que quer eliminar @Html.DisplayFor(model => model.Role)?</h3>
+<div style="color:white;">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        @Html.ActionLink("Voltar à gestão", "Index", null, new { @class = "btn btn-default" })  
+    </div>
+    }
+</div>

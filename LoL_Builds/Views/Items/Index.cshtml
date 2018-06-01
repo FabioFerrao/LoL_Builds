@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LoL_Builds.Models.Items>
+
+@{
+    ViewBag.Title = "Items";
+}
+
+<h2 style="color:white">@ViewBag.Title</h2>
+
+@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+{
+    <p>
+        @Html.ActionLink("Criar Novo", "Create", null, new { @class = "btn btn-default" })
+    </p>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="container col-md-2 text-center" style="padding-bottom:35px">
+
+            <div class="thumbnail thumbItems" style="background-color :#bfbfbf;">
+
+
+                @* IMAGEM DO ITEM *@
+                <a style="cursor:pointer;" href="@Url.Action("Details", "Items", new { id = item.ID , @class="image-link"})">
+                    <img class="img-thumbnail imgItems" src="~/Imagens/Items/@item.Imagem" />
+                </a>
+
+                @* NOME DO ITEM *@
+                <div class="container">
+                    <div class="h5 text-primary">
+                        <h5>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
