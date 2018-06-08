@@ -42,13 +42,13 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Roles:</label>
-            <div class="col-md-10">
+            <div class="col-md-9 clearfix" style="display:flex">
                 @foreach (LoL_Builds.Models.ChampRoles roles in ViewBag.listaRoles)
                 {
                     <div style="padding-right: 30px">
                         <input type="checkbox" name="checkRole" value="@roles.ID" />
                         <img src="~/Imagens/Roles/@roles.Imagem" class="thumbSmallRoles" />
-                        @Html.Label(roles.Role);
+                        @Html.Label(roles.Role)
                     </div>
                 }
             </div>

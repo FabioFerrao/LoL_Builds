@@ -249,11 +249,15 @@
     <Content Include="Imagens\Items\Redemption.png" />
     <Content Include="Imagens\Items\Thornmail.png" />
     <Content Include="Imagens\Items\VoidStaff.png" />
+    <Content Include="Imagens\logo.png" />
     <Content Include="Imagens\Roles\Bot.png" />
     <Content Include="Imagens\Roles\Jungler.png" />
     <Content Include="Imagens\Roles\Mid.png" />
     <Content Include="Imagens\Roles\Support.png" />
     <Content Include="Imagens\Roles\Top.png" />
+    <Content Include="Imagens\Slider\1.jpg" />
+    <Content Include="Imagens\Slider\2.jpg" />
+    <Content Include="Imagens\Slider\3.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
