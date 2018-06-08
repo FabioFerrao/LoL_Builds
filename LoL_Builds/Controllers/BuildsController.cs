@@ -85,6 +85,7 @@ namespace LoL_Builds.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.listaItems = db.Items.ToList();
             ViewBag.ChampionsFK = new SelectList(db.Champions, "ID", "Nome", builds.ChampionsFK);
             return View(builds);
         }
@@ -94,8 +95,38 @@ namespace LoL_Builds.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,ChampionsFK")] Builds builds)
+        public ActionResult Edit(/*[Bind(Include = "ID,Nome,ChampionsFK")] Builds builds*/FormCollection formBuild)
         {
+            Builds builds = db.Builds.Find(Int32.Parse(formBuild["ID"]));
+
+            builds.Nome = formBuild["Nome"];
+            builds.ChampionsFK = Int32.Parse(formBuild["ChampionsFK"]);
+
+            if (formBuild["checkItem"] != null)
+            {
+                var x = formBuild["checkItem"].Split(',');
+
+                foreach (Items item in db.Items.ToList())
+                {
+                    if (x.Contains(item.ID.ToString()))
+                    {
+                        builds.Items.Add(item);
+                        if (!item.Builds.Contains(builds))
+                        {
+                            item.Builds.Add(builds);
+                        }
+                    }
+                    else
+                    {
+                        if (item.Builds.Contains(builds))
+                        {
+                            item.Builds.Remove(builds);
+                        }
+                    }
+
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(builds).State = EntityState.Modified;

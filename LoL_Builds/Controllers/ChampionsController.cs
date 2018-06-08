@@ -27,7 +27,7 @@ namespace LoL_Builds.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            } 
+            }
             Champions champions = db.Champions.Find(id);
             if (champions == null)
             {
@@ -38,7 +38,7 @@ namespace LoL_Builds.Controllers
 
         // GET: Champions/Create
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create( )
+        public ActionResult Create()
         {
             ViewBag.listaRoles = db.ChampRoles.ToList();
             return View();
@@ -103,6 +103,7 @@ namespace LoL_Builds.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.listaRoles = db.ChampRoles.ToList();
             return View(champions);
         }
 
@@ -111,8 +112,14 @@ namespace LoL_Builds.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Descricao,Imagem")] Champions champion, HttpPostedFileBase uploadImage)
+        public ActionResult Edit(HttpPostedFileBase uploadImage, FormCollection formChampion)
         {
+            Champions champion = db.Champions.Find(Int32.Parse(formChampion["ID"]));
+
+            champion.Nome = formChampion["Nome"];
+            champion.Descricao = formChampion["Descricao"];
+            champion.Imagem = formChampion["Imagem"];
+
             string nomeImage = champion.Nome.Replace(" ", "") + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + ".png";
             string nomeVelho = champion.Imagem;
             string caminhoParaImagem = Path.Combine(Server.MapPath("~/Imagens/Champions/"), nomeImage);
@@ -121,8 +128,34 @@ namespace LoL_Builds.Controllers
                 champion.Imagem = nomeImage;
             }
 
+            if (formChampion["SelectedRole"] != null)
+            {
+                var x = formChampion["SelectedRole"].Split(',');
+
+                foreach (ChampRoles item in db.ChampRoles.ToList())
+                {
+                    if (x.Contains(item.ID.ToString()))
+                    {
+                        champion.ChampRoles.Add(item);
+                        if (!item.Champions.Contains(champion))
+                        {
+                            item.Champions.Add(champion);
+                        }
+                    }
+                    else
+                    {
+                        if (item.Champions.Contains(champion))
+                        {
+                            item.Champions.Remove(champion);
+                        }
+                    }
+
+                }
+            }
             if (ModelState.IsValid)
             {
+                //selectedRole = selectedRole ?? new string[] { };
+                //var result = await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray<string>());
                 try
                 {
                     db.Entry(champion).State = EntityState.Modified;
@@ -133,55 +166,103 @@ namespace LoL_Builds.Controllers
                         System.IO.File.Delete(Path.Combine(Server.MapPath("~/Imagens/Champions/"), nomeVelho));
                     }
                     return RedirectToAction("Index");
+
                 }
                 catch (Exception e)
                 {
                     ModelState.AddModelError("", "Ocorreu o seguinte erro: " + e.Message);
                 }
             }
+            ViewBag.listaRoles = db.ChampRoles.ToList();
             return View(champion);
         }
 
-        // GET: Champions/Delete/5
+        //GET: Champions/Delete/5
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Champions champions = db.Champions.Find(id);
-            if (champions == null)
-            {
-                return HttpNotFound();
-            }
-            return View(champions);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Champions champions = db.Champions.Find(id);
+            //if (champions == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return RedirectToAction("Index", "Champions");
         }
 
-        // POST: Champions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        //POST: Champions/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
 
 
-            Champions champion = db.Champions.Find(id);
-            string nomeImagem = champion.Imagem;
-            try
-            {
-                
-                db.Champions.Remove(champion);
-                db.SaveChanges();
-                System.IO.File.Delete(Path.Combine(Server.MapPath("~/Imagens/Champions/"), nomeImagem));
-                return RedirectToAction("Index");
+        //    Champions champion = db.Champions.Find(id);
+        //    string nomeImagem = champion.Imagem;
 
-            }
-            catch (Exception e)
-            {
-                ModelState.AddModelError("", "Ocorreu o seguinte erro: " + e.Message);
-            }
-            return RedirectToAction("Index");
-        }
+        //    foreach (ChampRoles champRole in champion.ChampRoles)
+        //    {
+        //        champRole.Champions.Remove(champion);
+        //    }
+        //    champion.ChampRoles = new List<ChampRoles>();
+
+        //    foreach (Builds champBuild in champion.Builds)
+        //    {
+        //        db.Items.RemoveRange(champBuild.Items);
+        //        champBuild.Items = new List<Items>();
+
+        //        db.Comentarios.RemoveRange(champBuild.Comentarios);
+        //        champBuild.Comentarios = new List<Comentarios>();
+        //    }
+        //    db.Builds.RemoveRange(champion.Builds);
+        //    champion.Builds = new List<Builds>();
+        //    db.ChampRoles.Where(model => model.Champions.Contains(champion));
+
+
+        //    ChampRoles[] championRoles = db.ChampRoles.Where(model => model.Champions.Contains(champion)).ToArray();
+        //    Builds[] championBuilds = db.Builds.Where(model => model.ChampionsFK == id).ToArray();
+
+        //    foreach (ChampRoles champRole in championRoles)
+        //    {
+        //        db.ChampRoles.Remove(champRole);
+        //    }
+
+
+
+        //    foreach (Builds champBuild in championBuilds)
+        //    {
+
+        //        Items[] buildItems = db.Items.Where(model => model.Builds.Contains(champBuild)).ToArray();
+        //        Comentarios[] buildComentarios = db.Comentarios.Where(model => model.BuildID == champBuild.ID).ToArray();
+        //        foreach (Items item in buildItems)
+        //        {
+        //            db.Items.Remove(item);
+        //        }
+
+        //        foreach (Comentarios comment in buildComentarios)
+        //        {
+        //            db.Comentarios.Remove(comment);
+        //        }
+        //        db.Builds.Remove(champBuild);
+        //    }
+        //    try
+        //    {
+
+        //        db.Champions.Remove(champion);
+        //        db.SaveChanges();
+        //        System.IO.File.Delete(Path.Combine(Server.MapPath("~/Imagens/Champions/"), nomeImagem));
+        //        return RedirectToAction("Index");
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ModelState.AddModelError("", "Ocorreu o seguinte erro: " + e.Message);
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

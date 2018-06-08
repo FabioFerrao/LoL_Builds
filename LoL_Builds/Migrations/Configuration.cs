@@ -35,11 +35,11 @@ namespace LoL_Builds.Migrations
 
             //adicionar ChampRoles
             var ChampRoles = new List<ChampRoles> {
-                new ChampRoles {ID=1, Role="SUPPORT"},
-                new ChampRoles {ID=2, Role="BOT"},
-                new ChampRoles {ID=3, Role="MID"},
-                new ChampRoles {ID=4, Role="JUNGLER"},
-                new ChampRoles {ID=5, Role="TOP"},
+                new ChampRoles {ID=1, Role="SUPPORT", Imagem="Support.png"},
+                new ChampRoles {ID=2, Role="BOT", Imagem="Bot.png"},
+                new ChampRoles {ID=3, Role="MID", Imagem="Mid.png"},
+                new ChampRoles {ID=4, Role="JUNGLER", Imagem="Jungler.png"},
+                new ChampRoles {ID=5, Role="TOP", Imagem="Top.png"},
             };
 
             ChampRoles.ForEach(rr => context.ChampRoles.AddOrUpdate(r => r.Role, rr));
@@ -61,27 +61,12 @@ namespace LoL_Builds.Migrations
             champions.ForEach(cc => context.Champions.AddOrUpdate(c => c.Nome, cc));
             context.SaveChanges();
 
-            // adiciona Builds
-            var builds = new List<Builds> {
-              new Builds {ID=1, Nome="Power Draven", ChampionsFK=4, Items = new List<Items>{ items[0], items[1], items[2], items[3]}},
-              new Builds {ID=2, Nome="One Shot LeBlanc", ChampionsFK=8, Items = new List<Items>{ items[4], items[5]}},
-              new Builds {ID=3, Nome="Lethality Rengar", ChampionsFK=3},
-              new Builds {ID=4, Nome="Tank Olaf", ChampionsFK=7, Items = new List<Items>{ items[6], items[7], items[8]}},
-              new Builds {ID=5, Nome="Support Lulu", ChampionsFK=10, Items = new List<Items>{ items[9]}},
-              new Builds {ID=6, Nome="Speed Kayle", ChampionsFK=9},
-              new Builds {ID=7, Nome="DPS Lucian", ChampionsFK=5},
-              new Builds {ID=8, Nome="Crit Ashe", ChampionsFK=1},
-              new Builds {ID=9, Nome="Lethality Draven", ChampionsFK=4},
-            };
-            builds.ForEach(bb => context.Builds.AddOrUpdate(b => b.Nome, bb));
-            context.SaveChanges();
-
             // adiciona Utilizadores
             var utilizadores = new List<Utilizadores> {
                new Utilizadores {ID=1, Nome="Tânia Vieira", DataNascimento=new DateTime(1995,01, 21), Genero="Feminino" },
                new Utilizadores {ID=2, Nome="António Rocha",  DataNascimento=new DateTime(1992,12, 02), Genero="Masculino" },
-               new Utilizadores {ID=3, Nome="André Silveira",  DataNascimento=new DateTime(1996,04, 05), Genero="Masculino" },
-               new Utilizadores {ID=4, Nome="Lurdes Vieira",  DataNascimento=new DateTime(1992,01, 20), Genero="Feminino" },
+               new Utilizadores {ID=3, Nome="André Silveira",  DataNascimento=new DateTime(1996,04, 05), Genero="Masculino"},
+               new Utilizadores {ID=4, Nome="Lurdes Vieira",  DataNascimento=new DateTime(1992,01, 20), Genero="Feminino"},
                new Utilizadores {ID=5, Nome="Cláudia Pinto",  DataNascimento=new DateTime(1997,03, 21), Genero="Feminino" },
                new Utilizadores {ID=6, Nome="Rui Vieira",  DataNascimento=new DateTime(1989,11, 29), Genero="Masculino" },
                new Utilizadores {ID=7, Nome="Paulo Vieira",  DataNascimento=new DateTime(1997,11, 21), Genero="Masculino" },
@@ -90,6 +75,21 @@ namespace LoL_Builds.Migrations
                new Utilizadores {ID=10, Nome="José Alves", DataNascimento=new DateTime(1994,11, 18), Genero="Masculino" },
             };
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.Nome, uu));
+            context.SaveChanges();
+
+            // adiciona Builds
+            var builds = new List<Builds> {
+              new Builds {ID=1, Nome="Power Draven", ChampionsFK=4, Items = new List<Items>{ items[0], items[1], items[2], items[3]}, UtilizadorFK=1},
+              new Builds {ID=2, Nome="One Shot LeBlanc", ChampionsFK=8, Items = new List<Items>{ items[4], items[5]}, UtilizadorFK=2},
+              new Builds {ID=3, Nome="Lethality Rengar", ChampionsFK=3, UtilizadorFK=3},
+              new Builds {ID=4, Nome="Tank Olaf", ChampionsFK=7, Items = new List<Items>{ items[6], items[7], items[8]}, UtilizadorFK=1},
+              new Builds {ID=5, Nome="Support Lulu", ChampionsFK=10, Items = new List<Items>{ items[9]}, UtilizadorFK=2},
+              new Builds {ID=6, Nome="Speed Kayle", ChampionsFK=9, UtilizadorFK=4},
+              new Builds {ID=7, Nome="DPS Lucian", ChampionsFK=5, UtilizadorFK=1},
+              new Builds {ID=8, Nome="Crit Ashe", ChampionsFK=1, UtilizadorFK=1},
+              new Builds {ID=9, Nome="Lethality Draven", ChampionsFK=4, UtilizadorFK=3},
+            };
+            builds.ForEach(bb => context.Builds.AddOrUpdate(b => b.Nome, bb));
             context.SaveChanges();
 
             // adiciona Comentarios
