@@ -6,6 +6,7 @@ using System.Web.Routing;
 
 namespace LoL_Builds
 {
+
     // Note: For instructions on enabling IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=301868
     public class MvcApplication : System.Web.HttpApplication
