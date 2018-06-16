@@ -7,7 +7,7 @@
 
 <h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
 
-<div class="row">
+<div class="row" style="color:white">
     <br />
     <div class="container col-md-2 text-center" style="padding-bottom:35px">
 
@@ -41,19 +41,36 @@
         </div>
     </div>
 </div>
-<div class="row" style="display:flex">
-    <h3 style="color: white;">Items:</h3>
-    @foreach (var item in Model.Items)
-    {
+<div class="row" style="display:flex;color:white">
 
-        <div class="col-4 thumbnail" style="margin-right:10px;margin-bottom:10px; background-color :#bfbfbf;">
-            <a href="@Url.Action("Details", "Items", new { id = item.ID })">
-                <img src="~/Imagens/Items/@item.Imagem" />
-                @Html.DisplayFor(i => item.Nome)
-            </a>
+    @if (Model.Items.Count() != 0)
+    {
+        <h3>Items:</h3>
+        foreach (var item in Model.Items)
+        {
+            <div class="col-4 thumbnail" style="margin-right:10px;margin-bottom:10px; background-color :#bfbfbf;">
+                <a href="@Url.Action("Details", "Items", new { id = item.ID })">
+                    <img src="~/Imagens/Items/@item.Imagem" />
+                    @Html.DisplayFor(i => item.Nome)
+                </a>
+            </div>
+        }
+    }
+</div>
+<br />
+<div class="row" style="display:contents; color:white">
+    <h3>Comentários:</h3>
+    @foreach (var comment in Model.Comentarios)
+    {
+        <br />
+        <div class="row" style="margin-left:10px;margin-bottom:10px; color:white">
+            <p class="p">@comment.TimeStamp</p>
+            <p class="h4">@comment.Utilizador.Nome</p>
+            <p class="p">@comment.Texto</p>
         </div>
     }
 </div>
+
 
 @{
     if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))

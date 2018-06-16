@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LoL_Builds.Models.Comentarios>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="color: white">Index</h2>
+
+<p style="color: white">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" style="color: white">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Build.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utilizador.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Texto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Build.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utilizador.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Texto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

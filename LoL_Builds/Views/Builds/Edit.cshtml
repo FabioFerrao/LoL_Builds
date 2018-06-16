@@ -24,13 +24,9 @@
         </div>
 
         <div class="form-group">
-
-            
-            @Html.LabelFor(model => model.ChampionsFK, "ChampionsFK", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ChampionsFK, null, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <img src="http://placehold.it/140x140" class="img-thumbnail" id="imagemChampion" />
-                <br /><br />
-                @Html.DropDownList("ChampionsFK", null, htmlAttributes: new { @class = "form-control" , onchange = "atulizaImagemEdit()" })
+                @Html.DropDownList("ChampionsFK", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ChampionsFK, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,25 +46,13 @@
                             <input type="checkbox" name="checkItem" value="@item.ID" class="checkbox-inline" />
                         }
 
-                        <img src="~/Imagens/Items/@item.Imagem"/>
+                        <img src="~/Imagens/Items/@item.Imagem" />
                         <div style="padding-left:20px; font-weight:bold">
                             @item.Nome
                         </div>
                     </div>
                 }
             </div>
-
-            @*<label class="control-label col-md-2">Items:</label>
-                <div class="col-md-9 clearfix" style="display:flex">
-                    @foreach (LoL_Builds.Models.Items item in ViewBag.listaItems)
-                    {
-                        <div style="padding-right:5px">
-                            <input type="checkbox" name="checkItem" value="@item.ID" />
-                            <img src="~/Imagens/Items/@item.Imagem" />
-                            @Html.Label(item.Nome)
-                        </div>
-                    }
-                </div>*@
         </div>
 
 
@@ -87,15 +71,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-<script>
-    //atualiza o preview da imagem
-    var atulizaImagemEdit = function (evento) {
-
-        // referencia à tag <img />
-        var img = document.getElementById('imagemChampion');
-
-        // altera o 'src' da <img /> para o da imagem carregada
-        img.src = "~/Imagens/Champions/"+evento;
-    }
-</script>
