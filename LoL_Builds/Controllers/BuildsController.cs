@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LoL_Builds.Models;
+using Microsoft.AspNet.Identity;
 
 namespace LoL_Builds.Controllers
 {
@@ -49,9 +50,17 @@ namespace LoL_Builds.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,ChampionsFK")] Builds build, FormCollection form)
+        public ActionResult Create([Bind(Include = "ID,Nome,ChampionsFK, UtilizadorFK")] Builds build, FormCollection form)
         {
-
+            var email = User.Identity.GetUserName();
+            var utilizadorArray = db.Utilizadores.Where(u => u.UserName.Equals(email));
+            var i = 0;
+            foreach (var u in utilizadorArray)
+            {
+                i = u.ID;
+            }
+            Session["idUtilizador"] = i;
+            build.UtilizadorFK = i;
             string aux = form["checkRole"];
             ICollection<Items> lista = new List<Items> { };
             var x = aux.Split(',');
@@ -157,9 +166,13 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
             Builds builds = db.Builds.Find(id);
-            builds.Items = new List<Items>{ };
+            builds.Items = new List<Items> { };
+            //Items[] buildItems = db.Items.Where(model => model.Builds.Contains(builds)).ToArray();
+            //foreach (Items item in buildItems)
+            //{
+            //    db.Items.Remove(item);
+            //}
             db.Builds.Remove(builds);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -39,15 +39,20 @@
                     <div class="thumbItems" style="padding-right:8px;">
                         @if (Model.Items.Contains(item))
                         {
-                            <input type="checkbox" name="checkItem" value="@item.ID" checked="checked" class="checkbox-inline" />
+                            <div>
+                                <input type="checkbox" name="checkItem" value="@item.ID" checked="checked" class="checkbox-inline" />
+                            </div>
                         }
                         else
-                        {
-                            <input type="checkbox" name="checkItem" value="@item.ID" class="checkbox-inline" />
+                        {   
+                            <div>
+                                <input type="checkbox" name="checkItem" value="@item.ID" class="checkbox-inline" />
+                            </div>
                         }
-
-                        <img src="~/Imagens/Items/@item.Imagem" />
-                        <div style="padding-left:20px; font-weight:bold">
+                        <div>
+                            <img src="~/Imagens/Items/@item.Imagem" />
+                        </div>
+                        <div style="font-weight:bold">
                             @item.Nome
                         </div>
                     </div>
