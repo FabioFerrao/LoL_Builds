@@ -20,10 +20,8 @@
     </div>
     <br />
     <div>
-        @Html.DisplayNameFor(model => model.Builds):
-    </div>
-    <div>
         @* Builds Associadas ao Item *@
+        @Html.DisplayNameFor(model => model.Builds):
         @if (Model.Builds.Count() != 0)
         {
             <div style="height:70px;font-weight:bold; color:#224362">
@@ -43,19 +41,21 @@
                 <p>Não tem builds associadas</p>
             </div>
             <br />
+
         }
+        <div style="margin-top:40px">
+            @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+            {
+                <p>
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+                </p>
+            }
+            else
+            {
+                <p>
+                    @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+                </p>
+            }
+        </div>
     </div>
-</div>
-@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
-{
-    <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
-        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
-    </p>
-}
-else
-{
-    <p>
-        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
-    </p>
-}

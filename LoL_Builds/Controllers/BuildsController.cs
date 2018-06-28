@@ -37,6 +37,35 @@ namespace LoL_Builds.Controllers
             return View(builds);
         }
 
+        // POST: Builds/Details/5   
+        [HttpPost]
+        public ActionResult Details(int id, string comentario)
+        {
+            Builds builds = db.Builds.Find(id);
+
+            Comentarios comment = new Comentarios();
+            comment.BuildID = id;
+            comment.Texto = comentario;
+            comment.TimeStamp = DateTime.Now;
+
+            var email = User.Identity.GetUserName();
+            var utilizador = db.Utilizadores.Where(u => u.UserName.Equals(email)).FirstOrDefault();
+            comment.UserID = utilizador.ID;
+
+            if (comentario == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (ModelState.IsValid)
+            {
+                db.Comentarios.Add(comment);
+                db.SaveChanges();
+                return RedirectToAction("Details");
+            }
+            return View(builds);
+        }
+
         // GET: Builds/Create
         public ActionResult Create()
         {
@@ -61,23 +90,30 @@ namespace LoL_Builds.Controllers
             }
             Session["idUtilizador"] = i;
             build.UtilizadorFK = i;
-            string aux = form["checkRole"];
-            ICollection<Items> lista = new List<Items> { };
-            var x = aux.Split(',');
-            foreach (string ids in x)
+            if (form["checkItem"] != null)
             {
-                Items item = db.Items.Find(Int32.Parse(ids));
-                lista.Add(item);
-                item.Builds.Add(build);
+                string aux = form["checkItem"];
+                ICollection<Items> lista = new List<Items> { };
+                var x = aux.Split(',');
+                foreach (string ids in x)
+                {
+                    Items item = db.Items.Find(Int32.Parse(ids));
+                    lista.Add(item);
+                    item.Builds.Add(build);
+                }
+                build.Items = lista;
             }
-            build.Items = lista;
+            else
+            {
+                build.Items = new List<Items>();
+            }
+
             if (ModelState.IsValid)
             {
                 db.Builds.Add(build);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.ChampionsFK = new SelectList(db.Champions, "ID", "Nome", build.ChampionsFK);
             return View(build);
         }
@@ -135,12 +171,26 @@ namespace LoL_Builds.Controllers
 
                 }
             }
+            else
+            {
+                foreach (Items item in db.Items.ToList())
+                {
+                    if (item.Builds.Contains(builds))
+                    {
+                        item.Builds.Remove(builds);
+                    }
+                }
+
+                builds.Items = new List<Items>();
+
+            }
 
             if (ModelState.IsValid)
             {
                 db.Entry(builds).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", "Builds", new { id = builds.ID });
             }
             ViewBag.ChampionsFK = new SelectList(db.Champions, "ID", "Nome", builds.ChampionsFK);
             return View(builds);
@@ -166,14 +216,23 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Builds builds = db.Builds.Find(id);
-            builds.Items = new List<Items> { };
-            //Items[] buildItems = db.Items.Where(model => model.Builds.Contains(builds)).ToArray();
-            //foreach (Items item in buildItems)
-            //{
-            //    db.Items.Remove(item);
-            //}
-            db.Builds.Remove(builds);
+            Builds build = db.Builds.Find(id);
+            while (build.Items.Count()!=0) {
+                build.Items.First().Builds.Remove(build);
+                build.Items.Remove(build.Items.First());
+            }
+            build.Items = new List<Items> { };
+            
+     
+            while (build.Comentarios.Count() != 0)
+            {
+                db.Comentarios.Remove(build.Comentarios.First());
+            }
+
+            build.Comentarios = new List<Comentarios> { };
+
+
+            db.Builds.Remove(build);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

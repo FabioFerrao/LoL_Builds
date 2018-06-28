@@ -226,6 +226,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\Champions\Annie.png" />
     <Content Include="Imagens\Champions\Ashe.png" />
+    <Content Include="Imagens\Champions\Darius.png" />
     <Content Include="Imagens\Champions\Draven.png" />
     <Content Include="Imagens\Champions\Kayle.png" />
     <Content Include="Imagens\Champions\LeBlanc.png" />
@@ -234,6 +235,7 @@
     <Content Include="Imagens\Champions\Lux_20180525_070642.png" />
     <Content Include="Imagens\Champions\MissFortune_20180525_070727.png" />
     <Content Include="Imagens\Champions\Olaf.png" />
+    <Content Include="Imagens\Champions\RekSai.png" />
     <Content Include="Imagens\Champions\Rengar.png" />
     <Content Include="Imagens\Champions\Soraka.png" />
     <Content Include="Imagens\Champions\Tristana_20180525_070747.png" />

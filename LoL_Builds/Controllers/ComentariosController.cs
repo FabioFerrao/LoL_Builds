@@ -122,7 +122,7 @@ namespace LoL_Builds.Controllers
             Comentarios comentarios = db.Comentarios.Find(id);
             db.Comentarios.Remove(comentarios);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Builds", new {id= comentarios.BuildID});
         }
 
         protected override void Dispose(bool disposing)

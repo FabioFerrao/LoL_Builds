@@ -65,6 +65,7 @@
 
     }
 </div>
+<div style="color:white">
 @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
 {
     <p>
@@ -78,3 +79,4 @@ else
         @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
     </p>
 }
+</div>

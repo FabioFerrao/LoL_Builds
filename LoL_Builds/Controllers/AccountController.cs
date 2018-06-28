@@ -150,7 +150,7 @@ namespace LoL_Builds.Controllers
         public async Task<ActionResult> Register([Bind(Include = "Nome,Genero,UserName")] Utilizadores utilizador, RegisterViewModel model, string DataNasc)
         {
             utilizador.UserName = model.Email;
-
+            
             int novoID = 0;
             //proteger a criacao de um novo id, determinar o numero de utilizadores da tabela
             if (db.Utilizadores.Count() == 0)
@@ -174,6 +174,7 @@ namespace LoL_Builds.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Registado");                   
                     db.Utilizadores.Add(utilizador);
                     db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

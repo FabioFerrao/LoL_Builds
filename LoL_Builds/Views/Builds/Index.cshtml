@@ -13,7 +13,7 @@
     </p>
 }
 <table class="table table-hover" style="color:white">
-    <tr style="background-color:#343434">
+    <tr style="background-color:#343434; display:none">
         
         <th>
             @Html.DisplayNameFor(model => model.Champion.Nome)
@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+                @if (Request.IsAuthenticated && (User.IsInRole("Administrador")|| User.IsInRole("Moderador") || User.Identity.Name == item.Utilizador.UserName))
                 {
                     <p>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new { @class = "btn btn-default" }) |
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new { @class = "btn btn-default" }) 
                         @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
                     </p>
                 }

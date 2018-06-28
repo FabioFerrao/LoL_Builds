@@ -7,6 +7,7 @@
 
 <h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
 
+@* DETALHES DO CHAMPION *@
 <div class="row" style="color:white">
     <br />
     <div class="container col-md-2 text-center" style="padding-bottom:35px">
@@ -41,6 +42,7 @@
         </div>
     </div>
 </div>
+@* ITENS UTILIZADOS NA BUILD *@
 <div class="row" style="display:flex;color:white">
 
     @if (Model.Items.Count() != 0)
@@ -58,74 +60,57 @@
     }
 </div>
 <br />
+@* COMENTARIOS DA BUILD *@
 <div class="row" style="display:contents; color:white">
-    <h3>Comentários:</h3>
-    @foreach (var comment in Model.Comentarios)
+    @if (Model.Comentarios.Count() != 0)
     {
-        <br />
-        <div class="row" style="margin-left:10px;margin-bottom:10px; color:white">
-            <p class="p">@comment.TimeStamp</p>
-            <p class="h4">@comment.Utilizador.Nome</p>
-            <p class="p">@comment.Texto</p>
+        <h3>Comentários:</h3>
+        foreach (var comment in Model.Comentarios)
+        {
+            <br />
+            <div class="row">
+                <div class="col-md-7" style="margin-left:10px;margin-bottom:10px; color:white">
+                    <p class="p">@comment.TimeStamp</p>
+                    <p class="h4">@comment.Utilizador.Nome</p>
+                    <p class="p">@comment.Texto</p>
+                </div>
+
+                @if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))
+                {
+
+                    <div class="col-md-3" style="height:100px">
+                        <a class="btn btn-danger" href=@Url.Action("Delete", "Comentarios", new { id=comment.ID }) style="position: absolute;top: 50%; transform: translateY(-50%);">Eliminar</a>
+                    </div>
+                }
+            </div>
+        }
+    }
+
+    @* NOVOS COMENTARIOS *@
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+        <div class="row">
+            <div class="col">
+                @Html.TextArea("comentario", "", 4, 150, htmlAttributes: new { @class = "form-control", @style = "resize:none" })
+                @Html.ValidationMessage("Erro ao comentar")
+                <input type="submit" value="Comentar" class="btn btn-default" />
+            </div>
         </div>
     }
+    <br />
 </div>
 
 
-@{
-    if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))
-    {
-        <div class="row">
-            <a class="btn btn-default" href=@Url.Action("Index", "Builds")>Voltar às Builds</a>
-        </div>
 
+<div class="row">
+    <a class="btn btn-default" href=@Url.Action("Index", "Builds")>Voltar às Builds</a>
+
+    @if (User.IsInRole("Administrador") || User.IsInRole("Moderador") || User.Identity.Name == Model.Utilizador.UserName)
+    {
+        <a class="btn btn-primary" href=@Url.Action("Edit", "Builds", new {id= Model.ID})>Editar Build</a>
+        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" })
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<div style="color:white">
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Champion.Nome)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Champion.Nome)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-
-        </dl>
-    </div>
-    @if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))
-    {
-        <p>
-            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
-            @Html.ActionLink("Voltar às Builds", "Index", null, new { @class = "btn btn-default" })
-        </p>
-    }
-    else
-    {
-        <p>
-            @Html.ActionLink("Voltar às Builds", "Index", null, new { @class = "btn btn-default" })
-        </p>
-    }*@
+</div>
