@@ -169,16 +169,17 @@ namespace LoL_Builds.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Utilizadores utilizadores = db.Utilizadores.Find(id);
-            if (utilizadores == null)
-            {
-                return HttpNotFound();
-            }
-            return View(utilizadores);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Utilizadores utilizadores = db.Utilizadores.Find(id);
+            //if (utilizadores == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(utilizadores);
+            return RedirectToAction("Index");
         }
 
         // POST: Utilizadores/Delete/5

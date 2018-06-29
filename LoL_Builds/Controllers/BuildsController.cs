@@ -199,16 +199,24 @@ namespace LoL_Builds.Controllers
         // GET: Builds/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            Builds build = db.Builds.Find(id);
+            if (User.Identity.Name == build.Utilizador.UserName || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                if (build == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(build);
             }
-            Builds builds = db.Builds.Find(id);
-            if (builds == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
+
             }
-            return View(builds);
         }
 
         // POST: Builds/Delete/5
@@ -218,7 +226,8 @@ namespace LoL_Builds.Controllers
         {
             Builds build = db.Builds.Find(id);
 
-            while (build.Items.Count()!=0) {
+            while (build.Items.Count() != 0)
+            {
                 build.Items.First().Builds.Remove(build);
                 build.Items.Remove(build.Items.First());
             }
@@ -231,10 +240,10 @@ namespace LoL_Builds.Controllers
 
             build.Comentarios = new List<Comentarios> { };
 
-
             db.Builds.Remove(build);
             db.SaveChanges();
             return RedirectToAction("Index");
+
         }
 
         protected override void Dispose(bool disposing)
