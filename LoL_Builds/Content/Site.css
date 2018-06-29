@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:#171414;
+    background-color: #171414;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -25,7 +25,7 @@ textarea {
 }
 
 .caption {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .img-thumbnail {
@@ -33,18 +33,37 @@ textarea {
     height: 140px;
     object-fit: cover;
 }
-.imgItems{
+
+.imgItems {
     width: 85px;
     height: 85px;
     object-fit: cover;
 }
 
 .thumbItems {
-    width:160px;
-    height:140px;
+    width: 160px;
+    height: 140px;
 }
 
 .thumbChampions {
     width: 160px;
     height: 260px;
+}
+
+.thumbRoles {
+    width: 160px;
+    height: 200px;
+}
+.thumbSmallRoles {
+    width: 75px;
+    height: 75px;
+}
+
+#tableInfo {
+    border-collapse: separate;
+    border-spacing: 50px 0;
+}
+
+#tableInfo td {
+    padding: 10px 0;
 }

@@ -42,5 +42,8 @@ namespace LoL_Builds.Models
         public string UserName { get; set; }
         // Ligacao para N Comentarios
         public virtual ICollection<Comentarios> Comentarios { get; set; }
+
+        //Ligacao com N Builds
+        public virtual ICollection<Builds> Builds { get; set; }
     }
 }

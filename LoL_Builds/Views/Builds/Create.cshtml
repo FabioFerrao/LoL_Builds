@@ -33,17 +33,22 @@
         <div class="form-group">
             <label class="control-label col-md-2">Items:</label>
             <div class="col-md-9 clearfix" style="display:flex">
-                @foreach (Items item in ViewBag.listaItems)
+                @foreach (LoL_Builds.Models.Items item in ViewBag.listaItems)
                 {
                     <div style="padding-right:5px">
-                        <input type="checkbox" name="checkRole" value="@item.ID" />
-                        <img src="~/Imagens/Items/@item.Imagem" />
-                        @Html.Label(item.Nome)
+                        <div>
+                            <input type="checkbox" name="checkItem" value="@item.ID" />
+                        </div>
+                        <div>
+                            <img src="~/Imagens/Items/@item.Imagem" />
+                        </div>
+                        <div>
+                            @Html.Label(item.Nome)
+                        </div>
                     </div>
                 }
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Criar" class="btn btn-primary" />

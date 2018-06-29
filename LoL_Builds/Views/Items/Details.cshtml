@@ -4,67 +4,58 @@
     ViewBag.Title = @Html.DisplayFor(model => model.Nome);
 }
 
+
 <h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
 
-<div>
+<div style="color:white">
     <hr />
-    <dl class="dl-horizontal" style="color:white">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <br />
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-
-        <br />
-        <dt style="margin-top:20px">
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
-
-        <dd>
-            <img src="~/Imagens/Items/@Model.Imagem" class="img-thumbnail imgItems" id="imagemItem" />
-        </dd>
-        <br />
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Builds)
-        </dt>
-        <dd>
-            @* Builds Associadas ao Item *@
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/Imagens/Items/@Model.Imagem " class="img-thumbnail imgItems" />
+        </div>
+        <div class="col-md-8">
+            <h3>@Html.DisplayNameFor(model => model.Descricao):</h3>
+            <p>@Html.DisplayFor(model => model.Descricao)</p>
+        </div>
+    </div>
+    <br />
+    <div>
+        @* Builds Associadas ao Item *@
+        @Html.DisplayNameFor(model => model.Builds):
+        @if (Model.Builds.Count() != 0)
+        {
             <div style="height:70px;font-weight:bold; color:#224362">
-                @foreach (var build in Model.Builds)
+                @foreach (var item in Model.Builds)
                 {
                     <div class="p">
-                        <a href="@Url.Action("Details", "Builds", new { id = build.ID })">
-                            @Html.DisplayFor(c => build.Nome)
+                        <a href="@Url.Action("Details", "Builds", new { id = item.ID })">
+                            @Html.DisplayFor(c => item.Nome)
                         </a>
                     </div>
                 }
             </div>
-        </dd>
+        }
+        else
+        {
+            <div class="p">
+                <p>Não tem builds associadas</p>
+            </div>
+            <br />
 
-    </dl>
-</div>
-@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
-{
-    <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
-        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" }) |
-        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
-    </p>
-}
-else
-{
-    <p>
-        @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
-    </p>
-}
+        }
+        <div style="margin-top:40px">
+            @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+            {
+                <p>
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+                </p>
+            }
+            else
+            {
+                <p>
+                    @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
+                </p>
+            }
+        </div>
+    </div>

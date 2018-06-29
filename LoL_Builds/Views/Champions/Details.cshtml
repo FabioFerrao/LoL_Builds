@@ -6,56 +6,51 @@
 
 <h2 style="color:white">@Html.DisplayFor(model => model.Nome)</h2>
 
-<div>
+<div style="color:white">
     <hr />
-    <dl class="dl-horizontal" style="color:white">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <br />
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <br />
-        <dt>
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
-
-
-        <dd>
+    <div class="row">
+        <div class="col-md-2">
             <img src="~/Imagens/Champions/@Model.Imagem " class="img-thumbnail" />
-        </dd>
-        <br />
-        <dt>
-            @Html.DisplayNameFor(model => model.ChampRoles)
-        </dt>
-        <dd>
+        </div>
+        <div class="col-md-8">
+            <h3>@Html.DisplayNameFor(model => model.Descricao):</h3>
+            <p>@Html.DisplayFor(model => model.Descricao)</p>
+        </div>
+    </div>
 
-            @foreach (var cRoles in Model.ChampRoles)
-            {
-                <div class="p">
-                    <a href="@Url.Action("Details", "ChampRoles", new { id = cRoles.ID })">
-                        <p class="btn btn-default">@Html.DisplayFor(c => cRoles.Role)</p>
-                    </a>
-                </div>
-                <br />
-            }
-        </dd>
-        <br />
-
-        <dt id="teste">
-            @Html.DisplayNameFor(model => model.Builds)
-        </dt>
-        <dd>
+    <h3>@Html.DisplayNameFor(model => model.ChampRoles):</h3>
+    <div class="row">
+        @if (Model.ChampRoles.Count() != 0)
+        {
+            <div class="col-md-7">
+                @foreach (var cRoles in Model.ChampRoles)
+                {
+                    <div class="col-md-2" style="text-align:center;">
+                        <a style="cursor:pointer;" href="@Url.Action("Details", "ChampRoles", new { id = cRoles.ID})">
+                            <img class="img-thumbnail thumbSmallRoles" src="~/Imagens/Roles/@cRoles.Imagem" title="@cRoles.Role" />
+                        </a>
+                        <p>@cRoles.Role</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="p">
+                <p>Não tem role</p>
+            </div>
+            <br />
+        }
+    </div>
+    <br />
+    @if (Model.Builds.Count() != 0)
+    {
+        <div>
+            <h3>@Html.DisplayNameFor(model => model.Builds):</h3>
+        </div>
+        <div>
             @* Builds Associadas ao Champion *@
+
             <div style="height:70px;font-weight:bold; color:#224362">
                 @foreach (var build in Model.Builds)
                 {
@@ -66,14 +61,15 @@
                     </div>
                 }
             </div>
-        </dd>
-    </dl>
+        </div>
+
+    }
 </div>
+<div style="color:white">
 @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
 {
     <p>
         @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
-        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" }) |
         @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
     </p>
 }
@@ -83,3 +79,4 @@ else
         @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
     </p>
 }
+</div>

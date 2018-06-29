@@ -16,12 +16,11 @@ namespace LoL_Builds.Models
             Items = new HashSet<Items>();
             Comentarios = new HashSet<Comentarios>();
         }
-
-        //Chave Primária
+        
         [Key]
         public int ID { get; set; }
 
-        //Nome
+        //Nome descritivo da build criada
         [Display(Name ="Nome da Build")]
         public string Nome { get; set; }
 
@@ -37,6 +36,10 @@ namespace LoL_Builds.Models
         // Ligacao para N Comentarios
         public virtual ICollection<Comentarios> Comentarios { get; set; }
 
-       
+        //Chave Forasteira para Utilizadores
+        [ForeignKey("Utilizador")]
+        [Display(Name = "Utilizador")]
+        public int UtilizadorFK { get; set; }
+        public virtual Utilizadores Utilizador { get; set; }
     }
 }

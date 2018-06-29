@@ -1,0 +1,39 @@
+﻿@model LoL_Builds.ApplicationUser
+
+@{
+    ViewBag.Title = Model.Email;
+}
+
+<h2 style="color:white">@Model.Email</h2>
+
+<div style="color:white">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd>
+            @if (ViewBag.RoleNames.Count == 0)
+            {
+                <p>Este utilizador não tem roles.</p>
+            }
+            @foreach (var item in ViewBag.RoleNames)
+            {
+                @Html.DisplayFor(i => item)
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) |
+    @Html.ActionLink("Voltar aos Utilizadores", "Index", null, new { @class = "btn btn-default" })
+</p>
+

@@ -5,28 +5,29 @@
 }
 
 
-<h2 style="color:white">Roles</h2>
+<h2 style="color:white">Roles:</h2>
 
-<table class="table table-hover" style="color:white">
-    <tr style="background-color:#343434">
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th>
+<div class="row">
+        @foreach (var role in Model)
+        {
+            <div class="container col-md-2 text-center" style="margin-left: 27px; padding-bottom:35px">
 
-        </th>
-    </tr>
+                <div class="thumbnail thumbRoles" style="background-color :#bfbfbf;">
 
-    @foreach (var item in Model)
-    {
-        <tr style="cursor:pointer;" onclick="location.href='@(Url.Action("Details", "ChampRoles", new { id = item.ID }))'">
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new {@class="btn btn-default" }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
-    }
-</table>
+                    @* IMAGEM DA ROLE *@
+                    <a style="cursor:pointer;" href="@(Url.Action("Details", "ChampRoles", new { id = role.ID }))">
+                        <img class="img-thumbnail" src="~/Imagens/Roles/@role.Imagem" />
+                    </a>
+                    @* NOME DA ROLE *@
+                    <div class="container">
+                        <div class="h4 text-primary">
+                            <h4>
+                                @Html.DisplayFor(modelChampions => role.Role)
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+

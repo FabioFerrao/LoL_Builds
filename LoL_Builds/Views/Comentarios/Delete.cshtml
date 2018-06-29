@@ -1,0 +1,55 @@
+﻿@model LoL_Builds.Models.Comentarios
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2 style="color:white">@ViewBag.Title</h2>
+
+<h3 style="color:white">Tem a certeza que quer eliminar o comentário de @Html.DisplayFor(model => model.Utilizador.Nome)?</h3>
+<div style="color:white">
+    <dl class="dl-horizontal" style="display:none">
+        <dt>
+            @Html.DisplayNameFor(model => model.Build.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Texto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Texto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger"  /> 
+            <a href=@Url.Action("Details", "Builds", new { id=Model.BuildID }) class="btn btn-default">Voltar à Build</a>
+        </div>
+    }
+</div>

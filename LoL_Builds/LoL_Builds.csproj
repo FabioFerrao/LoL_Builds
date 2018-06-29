@@ -193,15 +193,19 @@
     <Compile Include="Controllers\BuildsController.cs" />
     <Compile Include="Controllers\ChampionsController.cs" />
     <Compile Include="Controllers\ChampRolesController.cs" />
+    <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UtilizadoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Builds.cs" />
     <Compile Include="Models\Champions.cs" />
     <Compile Include="Models\Comentarios.cs" />
@@ -222,7 +226,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\Champions\Annie.png" />
     <Content Include="Imagens\Champions\Ashe.png" />
+    <Content Include="Imagens\Champions\Darius_20180628_064606.png" />
     <Content Include="Imagens\Champions\Draven.png" />
+    <Content Include="Imagens\Champions\empty.png" />
     <Content Include="Imagens\Champions\Kayle.png" />
     <Content Include="Imagens\Champions\LeBlanc.png" />
     <Content Include="Imagens\Champions\Lucian.png" />
@@ -230,11 +236,14 @@
     <Content Include="Imagens\Champions\Lux_20180525_070642.png" />
     <Content Include="Imagens\Champions\MissFortune_20180525_070727.png" />
     <Content Include="Imagens\Champions\Olaf.png" />
+    <Content Include="Imagens\Champions\RekSai_20180628_064737.png" />
     <Content Include="Imagens\Champions\Rengar.png" />
     <Content Include="Imagens\Champions\Soraka.png" />
     <Content Include="Imagens\Champions\Tristana_20180525_070747.png" />
+    <Content Include="Imagens\Champions\Yasuo_20180629_010010.png" />
     <Content Include="Imagens\Items\ArdentCenser.png" />
     <Content Include="Imagens\Items\BlackCleaver.png" />
+    <Content Include="Imagens\Items\empty.png" />
     <Content Include="Imagens\Items\FrozenMallet.png" />
     <Content Include="Imagens\Items\GuardianAngel.png" />
     <Content Include="Imagens\Items\InfinityEdge.png" />
@@ -246,6 +255,15 @@
     <Content Include="Imagens\Items\Redemption.png" />
     <Content Include="Imagens\Items\Thornmail.png" />
     <Content Include="Imagens\Items\VoidStaff.png" />
+    <Content Include="Imagens\logo.png" />
+    <Content Include="Imagens\Roles\Bot.png" />
+    <Content Include="Imagens\Roles\Jungler.png" />
+    <Content Include="Imagens\Roles\Mid.png" />
+    <Content Include="Imagens\Roles\Support.png" />
+    <Content Include="Imagens\Roles\Top.png" />
+    <Content Include="Imagens\Slider\1.jpg" />
+    <Content Include="Imagens\Slider\2.jpg" />
+    <Content Include="Imagens\Slider\3.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -325,6 +343,22 @@
     <Content Include="Views\Builds\Details.cshtml" />
     <Content Include="Views\Builds\Edit.cshtml" />
     <Content Include="Views\Builds\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Comentarios\Create.cshtml" />
+    <Content Include="Views\Comentarios\Delete.cshtml" />
+    <Content Include="Views\Comentarios\Details.cshtml" />
+    <Content Include="Views\Comentarios\Edit.cshtml" />
+    <Content Include="Views\Comentarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

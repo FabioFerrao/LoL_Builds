@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Imagem, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <img src="http://placehold.it/140x140" class="img-thumbnail" id="imagemChampion" />
+                <img src="~/Imagens/Champions/empty.png" class="img-thumbnail" id="imagemChampion" />
                 <input type="file" name="uploadImage" onchange="atulizaImagemEdit(event)" style="color:#428bca;" accept=".png" />
                 @Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })
             </div>
@@ -42,13 +42,14 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Roles:</label>
-            <div class="col-md-10">
-                @foreach (ChampRoles roles in ViewBag.listaRoles)
+            <div class="col-md-9 clearfix" style="display:flex">
+                @foreach (LoL_Builds.Models.ChampRoles roles in ViewBag.listaRoles)
                 {
-
-                    <input type="checkbox" name="checkRole" value="@roles.ID" />
-                    @Html.Label(roles.Role);
-                    <br />
+                    <div style="padding-right: 30px">
+                        <input type="checkbox" name="checkRole" value="@roles.ID" />
+                        <img src="~/Imagens/Roles/@roles.Imagem" class="thumbSmallRoles" />
+                        @Html.Label(roles.Role)
+                    </div>
                 }
             </div>
         </div>
@@ -73,7 +74,6 @@
 
         // referencia à tag <img />
         var img = document.getElementById('imagemChampion');
-        img.style.display = "block";
         // altera o 'src' da <img /> para o da imagem carregada
         img.src = URL.createObjectURL(event.target.files[0]);
     }

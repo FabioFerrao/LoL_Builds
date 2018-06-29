@@ -21,6 +21,10 @@ namespace LoL_Builds.Models
         //Role(papel do champion na partida)
         public string Role { get; set; }
 
+        //Imagem
+        public string Imagem { get; set; }
+
+
         //Ligacao N-N com os Champions
         public virtual ICollection<Champions> Champions { get; set; }
 

@@ -18,7 +18,7 @@ namespace LoL_Builds.Controllers
         // GET: Items
         public ActionResult Index()
         {
-            
+
             return View(db.Items.ToList().OrderBy(i => i.Nome));
         }
 
@@ -101,7 +101,7 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Nome,Descricao,Imagem")] Items item, HttpPostedFileBase uploadImage)
         {
-            string nomeImage = item.Nome.Replace(" ","") +DateTime.Now.ToString("_yyyyMMdd_hhmmss")+ ".png";
+            string nomeImage = item.Nome.Replace(" ", "") + DateTime.Now.ToString("_yyyyMMdd_hhmmss") + ".png";
             string nomeVelho = item.Imagem;
             string caminhoParaImagem = Path.Combine(Server.MapPath("~/Imagens/Items/"), nomeImage);
             if (uploadImage != null)
@@ -124,7 +124,7 @@ namespace LoL_Builds.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("","Ocorreu o seguinte erro: "+ e.Message);
+                    ModelState.AddModelError("", "Ocorreu o seguinte erro: " + e.Message);
                 }
             }
 
@@ -135,16 +135,17 @@ namespace LoL_Builds.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Items items = db.Items.Find(id);
-            if (items == null)
-            {
-                return HttpNotFound();
-            }
-            return View(items);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Items items = db.Items.Find(id);
+            //if (items == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(items);
+            return RedirectToAction("Index", "Items");
         }
 
         // POST: Items/Delete/5
