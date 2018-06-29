@@ -1,12 +1,44 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Sobre";
 }
-<hgroup>
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
-</hgroup>
-<div class="row-fluid">
+<h2 style="color:white">@ViewBag.Title</h2>
+<div class="row-fluid" style="color:white">
     <div class="span12">
-        <p>Use this area to provide additional information.</p>
+        @* Info do Aluno *@
+        <h3>Aluno:</h3>
+        <p>Fábio Alexandre Ferrão André</p>
+        <p>19088</p>
+        <p>Tecnologias da Internet II - 2018</p>
+
+        <h3>Utilizadores</h3>
+        <table>
+            <tr>
+                <td>Tipo de Utilizador</td>
+                <td>Login </td>
+                <td>Password</td>
+            </tr>
+            <tr>
+                <td>Admin</td>
+                <td>admin@admin.com</td>
+                <td>123Qwe!</td>
+            </tr>
+            <tr>
+                <td>Moderador</td>
+                <td>mod1@mod1.com</td>
+                <td>123Qwe!</td>
+            </tr>
+            <tr>
+                <td>Registado1</td>
+                <td>reg1@reg1.com</td>
+                <td>123Qwe!</td>
+            </tr>
+            <tr>
+                <td>Registado2</td>
+                <td>reg2@reg2.com</td>
+                <td>123Qwe!</td>
+            </tr>
+        </table>
+
+
     </div>
 </div>
