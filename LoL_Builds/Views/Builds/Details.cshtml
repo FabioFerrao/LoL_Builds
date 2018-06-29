@@ -87,17 +87,21 @@
     }
 
     @* NOVOS COMENTARIOS *@
-    @using (Html.BeginForm())
+
+    @if (Request.IsAuthenticated)
     {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.ID)
-        <div class="row">
-            <div class="col">
-                @Html.TextArea("comentario", "", 4, 150, htmlAttributes: new { @class = "form-control", @style = "resize:none" })
-                @Html.ValidationMessage("Erro ao comentar")
-                <input type="submit" value="Comentar" class="btn btn-default" />
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ID)
+            <div class="row">
+                <div class="col">
+                    @Html.TextArea("comentario", "", 4, 150, htmlAttributes: new { @class = "form-control", @style = "resize:none" })
+                    @Html.ValidationMessage("Erro ao comentar")
+                    <input type="submit" value="Comentar" class="btn btn-default" />
+                </div>
             </div>
-        </div>
+        }
     }
     <br />
 </div>

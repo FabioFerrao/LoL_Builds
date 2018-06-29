@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Imagem, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <img src="http://placehold.it/140x140" class="img-thumbnail" id="imagemChampion" />
+                <img src="~/Imagens/Champions/empty.png" class="img-thumbnail" id="imagemChampion" />
                 <input type="file" name="uploadImage" onchange="atulizaImagemEdit(event)" style="color:#428bca;" accept=".png" />
                 @Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })
             </div>

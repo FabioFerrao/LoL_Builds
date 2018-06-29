@@ -226,8 +226,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\Champions\Annie.png" />
     <Content Include="Imagens\Champions\Ashe.png" />
-    <Content Include="Imagens\Champions\Darius.png" />
+    <Content Include="Imagens\Champions\Darius_20180628_064606.png" />
     <Content Include="Imagens\Champions\Draven.png" />
+    <Content Include="Imagens\Champions\empty.png" />
     <Content Include="Imagens\Champions\Kayle.png" />
     <Content Include="Imagens\Champions\LeBlanc.png" />
     <Content Include="Imagens\Champions\Lucian.png" />
@@ -235,12 +236,14 @@
     <Content Include="Imagens\Champions\Lux_20180525_070642.png" />
     <Content Include="Imagens\Champions\MissFortune_20180525_070727.png" />
     <Content Include="Imagens\Champions\Olaf.png" />
-    <Content Include="Imagens\Champions\RekSai.png" />
+    <Content Include="Imagens\Champions\RekSai_20180628_064737.png" />
     <Content Include="Imagens\Champions\Rengar.png" />
     <Content Include="Imagens\Champions\Soraka.png" />
     <Content Include="Imagens\Champions\Tristana_20180525_070747.png" />
+    <Content Include="Imagens\Champions\Yasuo_20180629_010010.png" />
     <Content Include="Imagens\Items\ArdentCenser.png" />
     <Content Include="Imagens\Items\BlackCleaver.png" />
+    <Content Include="Imagens\Items\empty.png" />
     <Content Include="Imagens\Items\FrozenMallet.png" />
     <Content Include="Imagens\Items\GuardianAngel.png" />
     <Content Include="Imagens\Items\InfinityEdge.png" />

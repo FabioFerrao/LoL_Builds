@@ -152,6 +152,18 @@ namespace LoL_Builds.Controllers
 
                 }
             }
+            else {
+                
+                foreach (ChampRoles role in db.ChampRoles.ToList())
+                {
+                    if (role.Champions.Contains(champion))
+                    {
+                        role.Champions.Remove(champion);
+                    }
+                }
+
+                champion.ChampRoles = new List<ChampRoles>();
+            }
             if (ModelState.IsValid)
             {
                 //selectedRole = selectedRole ?? new string[] { };

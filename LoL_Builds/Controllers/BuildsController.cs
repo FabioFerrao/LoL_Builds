@@ -54,7 +54,7 @@ namespace LoL_Builds.Controllers
 
             if (comentario == "")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Details");
             }
 
             if (ModelState.IsValid)
