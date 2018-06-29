@@ -59,11 +59,11 @@ textarea {
     height: 75px;
 }
 
-table {
+#tableInfo {
     border-collapse: separate;
     border-spacing: 50px 0;
 }
 
-td {
+#tableInfo td {
     padding: 10px 0;
 }
