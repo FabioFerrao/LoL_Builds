@@ -217,13 +217,13 @@ namespace LoL_Builds.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Builds build = db.Builds.Find(id);
+
             while (build.Items.Count()!=0) {
                 build.Items.First().Builds.Remove(build);
                 build.Items.Remove(build.Items.First());
             }
             build.Items = new List<Items> { };
-            
-     
+
             while (build.Comentarios.Count() != 0)
             {
                 db.Comentarios.Remove(build.Comentarios.First());

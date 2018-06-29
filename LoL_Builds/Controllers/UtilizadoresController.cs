@@ -4,10 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using LoL_Builds.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace LoL_Builds.Controllers
 {
@@ -35,7 +37,7 @@ namespace LoL_Builds.Controllers
                 return HttpNotFound();
             }
             return View(utilizadores);
-        }       
+        }
         // GET: Utilizadores/UtilizadoresDetails/5
         public ActionResult UtilizadoresDetails(int? id)
         {
@@ -71,11 +73,13 @@ namespace LoL_Builds.Controllers
             //determinar id do novo utilizador
             int novoID = 0;
             //proteger a criacao de um novo id, determinar o numero de utilizadores da tabela
-            if (db.Utilizadores.Count() == 0) {
+            if (db.Utilizadores.Count() == 0)
+            {
                 novoID = 1;
             }
-            else  {
-                novoID = db.Utilizadores.Max(u => u.ID)+1;
+            else
+            {
+                novoID = db.Utilizadores.Max(u => u.ID) + 1;
             }
             //atribuir o id do novo utilizador
             utilizador.ID = novoID;
@@ -132,15 +136,15 @@ namespace LoL_Builds.Controllers
         [Authorize]
         public ActionResult EditMe(int? id)
         {
-                if (id == null)
-                {
-                    return RedirectToAction("Index", "Manage");
-                }
-                Utilizadores utilizador = db.Utilizadores.Find(id);
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Manage");
+            }
+            Utilizadores utilizador = db.Utilizadores.Find(id);
             if (utilizador == null || utilizador.UserName != User.Identity.GetUserName())
-                {
-                    return RedirectToAction("Index", "Manage");
-                }
+            {
+                return RedirectToAction("Index", "Manage");
+            }
             return View(utilizador);
         }
 
@@ -182,8 +186,49 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Utilizadores utilizadores = db.Utilizadores.Find(id);
-            db.Utilizadores.Remove(utilizadores);
+            Utilizadores utilizador = db.Utilizadores.Find(id);
+
+            //eliminacao dos comentarios relativos a esse utilizador
+            while (utilizador.Comentarios.Count() != 0)
+            {
+                db.Comentarios.Remove(utilizador.Comentarios.First());
+            }
+
+            utilizador.Comentarios = new List<Comentarios> { };
+
+
+
+
+            //eliminacao das builds relativas a esse utilizador
+            while (utilizador.Builds.Count() != 0)
+            {
+
+                //eliminacao dos items associados a cada build
+                Builds build = db.Builds.Find(utilizador.Builds.First().ID);
+
+                while (build.Items.Count() != 0)
+                {
+                    build.Items.First().Builds.Remove(build);
+                    build.Items.Remove(build.Items.First());
+                }
+                build.Items = new List<Items> { };
+
+                db.Builds.Remove(utilizador.Builds.First());
+            }
+
+            utilizador.Builds = new List<Builds> { };
+
+            //while (utilizador.Comentarios.Count() != 0)
+            //{
+            //    db.Comentarios.Remove(utilizador.Comentarios.First());
+
+            //    utilizador.Comentarios.Remove(utilizador.Comentarios.First());
+            //}
+
+            utilizador.Builds.Count();
+
+
+            db.Utilizadores.Remove(utilizador);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

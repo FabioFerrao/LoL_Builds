@@ -16,6 +16,8 @@ namespace LoL_Builds.Controllers
     [Authorize(Roles = "Administrador")]
     public class UsersAdminController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public UsersAdminController()
         {
         }
@@ -214,12 +216,54 @@ namespace LoL_Builds.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var user = await UserManager.FindByIdAsync(id);
+                int idUtilizador = db.Utilizadores.Where(u => u.UserName.Equals(user.Email)).First().ID;
+                Utilizadores utilizador = db.Utilizadores.Find(idUtilizador);
+
+                //eliminacao dos comentarios relativos a esse utilizador
+                while (utilizador.Comentarios.Count() != 0)
+                {
+                    db.Comentarios.Remove(utilizador.Comentarios.First());
+                }
+
+                utilizador.Comentarios = new List<Comentarios> { };
+
+
+
+
+                //eliminacao das builds relativas a esse utilizador
+                while (utilizador.Builds.Count() != 0)
+                {
+
+                    //eliminacao dos items associados a cada build
+                    Builds build = db.Builds.Find(utilizador.Builds.First().ID);
+
+                    while (build.Items.Count() != 0)
+                    {
+                        build.Items.First().Builds.Remove(build);
+                        build.Items.Remove(build.Items.First());
+                    }
+                    build.Items = new List<Items> { };
+
+                    db.Builds.Remove(utilizador.Builds.First());
+                }
+
+                utilizador.Builds = new List<Builds> { };
+
+
+                utilizador.Builds.Count();
+
+
+                db.Utilizadores.Remove(utilizador);
+                db.SaveChanges();
+
+
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var user = await UserManager.FindByIdAsync(id);
                 if (user == null)
                 {
                     return HttpNotFound();
@@ -230,6 +274,8 @@ namespace LoL_Builds.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
+
+
                 return RedirectToAction("Index");
             }
             return View();
