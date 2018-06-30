@@ -33,6 +33,7 @@ namespace LoL_Builds.Models
         public DateTime DataNascimento { get; set; }
 
         //genero
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         [StringLength(40)]
         [Display(Name = "Género")]
         public string Genero { get; set; }

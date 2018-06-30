@@ -150,8 +150,16 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register([Bind(Include = "Nome,Genero,UserName")] Utilizadores utilizador, RegisterViewModel model, string DataNasc)
         {
+            //Comparacao com a data de "agora"
+            int comp = DateTime.Compare(DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")), DateTime.Parse(DataNasc));
+           
+            //caso a data nao seja inserida pelo utilizador ou caso a data seja superior ou igual à atual
+            if (DataNasc == "" || comp<=0) {
+                return View(model);
+            }
+
             utilizador.UserName = model.Email;
-            
+
             int novoID = 0;
             //proteger a criacao de um novo id, determinar o numero de utilizadores da tabela
             if (db.Utilizadores.Count() == 0)
@@ -185,6 +193,7 @@ namespace LoL_Builds.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    Session["nomeUser"] = db.Utilizadores.Where(n => n.UserName.Equals(model.Email)).FirstOrDefault().Nome;
 
                     return RedirectToAction("Index", "Home");
                 }

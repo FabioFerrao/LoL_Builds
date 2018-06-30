@@ -28,33 +28,33 @@ namespace LoL_Builds.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Nova password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Confirmar nova password")]
+        [Compare("NewPassword", ErrorMessage = "A nova password e a confirmação não são iguais.")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ChangePasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "A Password actual é necessária.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Password Actual")]
         public string OldPassword { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "A Nova password é necessária.")]
+        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Nova password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Confirmar nova password")]
+        [Compare("NewPassword", ErrorMessage = "A nova password e a confirmação não são iguais.")]
         public string ConfirmPassword { get; set; }
     }
 

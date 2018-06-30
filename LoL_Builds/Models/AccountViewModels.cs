@@ -45,12 +45,12 @@ namespace LoL_Builds.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "O email é necessário.")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A Password é necessária.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -61,20 +61,20 @@ namespace LoL_Builds.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "O email é necessário.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "A Password é necessária.")]
+        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "A nova password e a confirmação não são iguais.")]
         public string ConfirmPassword { get; set; }
 
         public Utilizadores utilizador { get; set; }
@@ -89,14 +89,14 @@ namespace LoL_Builds.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "A nova password e a confirmação não são iguais.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
