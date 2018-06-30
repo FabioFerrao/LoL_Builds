@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href=@Url.Action("About", "Home")>Sobre</a></li>
             <li>
-                @Html.ActionLink("Bem-vindo " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Bem-vindo " + Session["nomeUser"] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
         </ul>

@@ -78,6 +78,7 @@ namespace LoL_Builds.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["nomeUser"] = db.Utilizadores.Where(n => n.UserName.Equals(model.Email)).FirstOrDefault().Nome;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

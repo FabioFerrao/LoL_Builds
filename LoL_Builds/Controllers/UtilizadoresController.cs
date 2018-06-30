@@ -126,6 +126,9 @@ namespace LoL_Builds.Controllers
             {
                 db.Entry(utilizador).State = EntityState.Modified;
                 db.SaveChanges();
+                if (utilizador.UserName == User.Identity.Name) {
+                    Session["nomeUser"] = utilizador.Nome;
+                }
                 return RedirectToAction("Index");
             }
             return View(utilizador);
@@ -159,6 +162,7 @@ namespace LoL_Builds.Controllers
             {
                 db.Entry(utilizador).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["nomeUser"] = utilizador.Nome;
                 return RedirectToAction("Index", "Manage");
             }
             return View(utilizador);
@@ -197,9 +201,6 @@ namespace LoL_Builds.Controllers
 
             utilizador.Comentarios = new List<Comentarios> { };
 
-
-
-
             //eliminacao das builds relativas a esse utilizador
             while (utilizador.Builds.Count() != 0)
             {
@@ -219,16 +220,7 @@ namespace LoL_Builds.Controllers
 
             utilizador.Builds = new List<Builds> { };
 
-            //while (utilizador.Comentarios.Count() != 0)
-            //{
-            //    db.Comentarios.Remove(utilizador.Comentarios.First());
-
-            //    utilizador.Comentarios.Remove(utilizador.Comentarios.First());
-            //}
-
-            utilizador.Builds.Count();
-
-
+            //eliminação do utilizador após a desassociação de tudo o que liga ao mesmo
             db.Utilizadores.Remove(utilizador);
             db.SaveChanges();
             return RedirectToAction("Index");

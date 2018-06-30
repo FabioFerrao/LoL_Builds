@@ -69,7 +69,7 @@
 @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
 {
     <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" }) |
         @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
     </p>
 }

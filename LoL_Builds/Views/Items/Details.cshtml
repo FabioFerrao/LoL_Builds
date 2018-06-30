@@ -21,33 +21,27 @@
     <br />
     <div>
         @* Builds Associadas ao Item *@
-        @Html.DisplayNameFor(model => model.Builds):
         @if (Model.Builds.Count() != 0)
         {
+
+            <h3> @Html.DisplayNameFor(model => model.Builds):</h3>
             <div style="height:70px;font-weight:bold; color:#224362">
                 @foreach (var item in Model.Builds)
-                {
-                    <div class="p">
-                        <a href="@Url.Action("Details", "Builds", new { id = item.ID })">
-                            @Html.DisplayFor(c => item.Nome)
-                        </a>
-                    </div>
-                }
+                                {
+                                    <div class="p">
+                                        <a href="@Url.Action("Details", "Builds", new { id = item.ID })">
+                                            @Html.DisplayFor(c => item.Nome)
+                                        </a>
+                                    </div>
+                                }
             </div>
         }
-        else
-        {
-            <div class="p">
-                <p>Não tem builds associadas</p>
-            </div>
-            <br />
 
-        }
         <div style="margin-top:40px">
             @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
             {
                 <p>
-                    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" }) |
                     @Html.ActionLink("Voltar aos Items", "Index", null, new { @class = "btn btn-default" })
                 </p>
             }
