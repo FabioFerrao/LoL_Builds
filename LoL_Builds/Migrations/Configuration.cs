@@ -63,16 +63,16 @@ namespace LoL_Builds.Migrations
 
             // adiciona Utilizadores
             var utilizadores = new List<Utilizadores> {
-               new Utilizadores {ID=1, Nome="Tânia Vieira", DataNascimento=new DateTime(1995,01, 21), Genero="Feminino" },
-               new Utilizadores {ID=2, Nome="António Rocha",  DataNascimento=new DateTime(1992,12, 02), Genero="Masculino" },
-               new Utilizadores {ID=3, Nome="André Silveira",  DataNascimento=new DateTime(1996,04, 05), Genero="Masculino"},
-               new Utilizadores {ID=4, Nome="Lurdes Vieira",  DataNascimento=new DateTime(1992,01, 20), Genero="Feminino"},
-               new Utilizadores {ID=5, Nome="Cláudia Pinto",  DataNascimento=new DateTime(1997,03, 21), Genero="Feminino" },
-               new Utilizadores {ID=6, Nome="Rui Vieira",  DataNascimento=new DateTime(1989,11, 29), Genero="Masculino" },
-               new Utilizadores {ID=7, Nome="Paulo Vieira",  DataNascimento=new DateTime(1997,11, 21), Genero="Masculino" },
-               new Utilizadores {ID=8, Nome="Augusto Carvalho",  DataNascimento=new DateTime(1999,03, 15), Genero="Masculino" },
-               new Utilizadores {ID=9, Nome="Beatriz Pinto",  DataNascimento=new DateTime(1995,01, 05), Genero="Feminino" },
-               new Utilizadores {ID=10, Nome="José Alves", DataNascimento=new DateTime(1994,11, 18), Genero="Masculino" },
+               new Utilizadores {ID=1, Nome="Tânia Vieira", DataNascimento=new DateTime(1995,01, 21), Genero="Feminino", UserName="tania@tania.com"},
+               new Utilizadores {ID=2, Nome="António Rocha",  DataNascimento=new DateTime(1992,12, 02), Genero="Masculino", UserName="antonio@antonio.com" },
+               new Utilizadores {ID=3, Nome="André Silveira",  DataNascimento=new DateTime(1996,04, 05), Genero="Masculino", UserName="andre@andre.com"},
+               new Utilizadores {ID=4, Nome="Lurdes Vieira",  DataNascimento=new DateTime(1992,01, 20), Genero="Feminino", UserName="lurdes@lurdes.com"},
+               new Utilizadores {ID=5, Nome="Cláudia Pinto",  DataNascimento=new DateTime(1997,03, 21), Genero="Feminino", UserName="claudia@claudia.com" },
+               new Utilizadores {ID=6, Nome="Rui Vieira",  DataNascimento=new DateTime(1989,11, 29), Genero="Masculino", UserName="rui@rui.com" },
+               new Utilizadores {ID=7, Nome="Paulo Vieira",  DataNascimento=new DateTime(1997,11, 21), Genero="Masculino", UserName="paulo@paulo.com" },
+               new Utilizadores {ID=8, Nome="Augusto Carvalho",  DataNascimento=new DateTime(1999,03, 15), Genero="Masculino", UserName="augusto@augusto.com" },
+               new Utilizadores {ID=9, Nome="Beatriz Pinto",  DataNascimento=new DateTime(1995,01, 05), Genero="Feminino", UserName="beatriz@beatriz.com" },
+               new Utilizadores {ID=10, Nome="José Alves", DataNascimento=new DateTime(1994,11, 18), Genero="Masculino", UserName="jose@jose.com" },
             };
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.Nome, uu));
             context.SaveChanges();

@@ -151,10 +151,10 @@ namespace LoL_Builds.Controllers
         public async Task<ActionResult> Register([Bind(Include = "Nome,Genero,UserName")] Utilizadores utilizador, RegisterViewModel model, string DataNasc)
         {
             //Comparacao com a data de "agora"
-            int comp = DateTime.Compare(DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")), DateTime.Parse(DataNasc));
+            int comparacao = DateTime.Compare(DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")), DateTime.Parse(DataNasc));
            
             //caso a data nao seja inserida pelo utilizador ou caso a data seja superior ou igual à atual
-            if (DataNasc == "" || comp<=0) {
+            if (DataNasc == "" || comparacao<=0) {
                 return View(model);
             }
 
@@ -177,7 +177,6 @@ namespace LoL_Builds.Controllers
 
             if (ModelState.IsValid)
             {
-
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
