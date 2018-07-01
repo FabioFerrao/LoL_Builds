@@ -122,6 +122,20 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,DataNascimento,Nome,Genero,UserName")] Utilizadores utilizador)
         {
+            string DataNasc = utilizador.DataNascimento.ToString("yyyy-MM-dd");
+            //caso a data nao seja inserida pelo utilizador
+            if (DataNasc == "")
+            {
+                return View(utilizador);
+            }
+            //Comparacao com a data de "agora"
+            int comparacao = DateTime.Compare(DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")), DateTime.Parse(DataNasc));
+
+            //caso a data seja superior ou igual à atual
+            if (comparacao <= 0)
+            {
+                return View(utilizador);
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(utilizador).State = EntityState.Modified;
@@ -158,6 +172,21 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditMe([Bind(Include = "ID,DataNascimento,Nome,Genero,UserName")] Utilizadores utilizador)
         {
+            string DataNasc = utilizador.DataNascimento.ToString("yyyy-MM-dd");
+            //caso a data nao seja inserida pelo utilizador
+            if (DataNasc == "")
+            {
+                return View(utilizador);
+            }
+            //Comparacao com a data de "agora"
+            int comparacao = DateTime.Compare(DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")), DateTime.Parse(DataNasc));
+
+            //caso a data seja superior ou igual à atual
+            if (comparacao <= 0)
+            {
+                return View(utilizador);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(utilizador).State = EntityState.Modified;

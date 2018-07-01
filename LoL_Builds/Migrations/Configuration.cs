@@ -80,12 +80,12 @@ namespace LoL_Builds.Migrations
             // adiciona Builds
             var builds = new List<Builds> {
               new Builds {ID=1, Nome="Power Draven", ChampionsFK=4, Items = new List<Items>{ items[0], items[1], items[2], items[3]}, UtilizadorFK=1},
-              new Builds {ID=2, Nome="One Shot LeBlanc", ChampionsFK=8, Items = new List<Items>{ items[4], items[5]}, UtilizadorFK=2},
+              new Builds {ID=2, Nome="Oneshot Leblanc", ChampionsFK=8, Items = new List<Items>{ items[4], items[5]}, UtilizadorFK=2},
               new Builds {ID=3, Nome="Lethality Rengar", ChampionsFK=3, UtilizadorFK=3},
               new Builds {ID=4, Nome="Tank Olaf", ChampionsFK=7, Items = new List<Items>{ items[6], items[7], items[8]}, UtilizadorFK=1},
               new Builds {ID=5, Nome="Support Lulu", ChampionsFK=10, Items = new List<Items>{ items[9]}, UtilizadorFK=2},
               new Builds {ID=6, Nome="Speed Kayle", ChampionsFK=9, UtilizadorFK=4},
-              new Builds {ID=7, Nome="DPS Lucian", ChampionsFK=5, UtilizadorFK=1},
+              new Builds {ID=7, Nome="Dps Lucian", ChampionsFK=5, UtilizadorFK=1},
               new Builds {ID=8, Nome="Crit Ashe", ChampionsFK=1, UtilizadorFK=1},
               new Builds {ID=9, Nome="Lethality Draven", ChampionsFK=4, UtilizadorFK=3},
             };

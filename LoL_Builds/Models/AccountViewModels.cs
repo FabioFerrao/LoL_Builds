@@ -63,6 +63,7 @@ namespace LoL_Builds.Models
     {
         [Required(ErrorMessage = "O email é necessário.")]
         [EmailAddress]
+        [RegularExpression("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\x2E[A-Za-z]{2,4}",ErrorMessage ="O email tem de ser válido")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

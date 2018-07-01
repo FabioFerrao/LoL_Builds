@@ -21,17 +21,22 @@ namespace LoL_Builds.Models
         public int ID { get; set; }
 
         //Nome
+        [Required(ErrorMessage = "Nome do champion necessário")]
+        [RegularExpression("^(?![\x20.]+$)[a-zA-Z'\x20.]*$", ErrorMessage = "O nome do champion apenas aceita letras.")]
         [Display(Name = "Nome do Champion")]
         public string Nome { get; set; }
 
         //Descricao
+        [Required(ErrorMessage = "Descrição do champion necessária")]
         [Display(Name = "Descrição")]
+        [StringLength(100)]
         public string Descricao { get; set; }
 
         //Imagem
         public string Imagem { get; set; }
 
         //Ligacao com N Roles
+        [Required(ErrorMessage = "Pelo menos uma role do champion necessária")]
         [Display(Name = "Roles")]
         public virtual ICollection<ChampRoles> ChampRoles { get; set; }
         

@@ -18,10 +18,10 @@
         </div>
     </div>
 
-    <h3>@Html.DisplayNameFor(model => model.ChampRoles):</h3>
     <div class="row">
         @if (Model.ChampRoles.Count() != 0)
         {
+            <h3>@Html.DisplayNameFor(model => model.ChampRoles):</h3>
             <div class="col-md-7">
                 @foreach (var cRoles in Model.ChampRoles)
                 {
@@ -33,13 +33,6 @@
                     </div>
                 }
             </div>
-        }
-        else
-        {
-            <div class="p">
-                <p>Não tem role</p>
-            </div>
-            <br />
         }
     </div>
     <br />
@@ -66,17 +59,17 @@
     }
 </div>
 <div style="color:white">
-@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
-{
-    <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" }) |
-        @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
-    </p>
-}
-else
-{
-    <p>
-        @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
-    </p>
-}
+    @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+    {
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Voltar aos Champions", "Index", null, new { @class = "btn btn-default" })
+        </p>
+    }
 </div>

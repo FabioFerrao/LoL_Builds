@@ -21,6 +21,8 @@ namespace LoL_Builds.Models
         public int ID { get; set; }
 
         //Nome descritivo da build criada
+        [Required(ErrorMessage = "Nome da build necessária")]
+        [RegularExpression("^(?![\x20.]+$)[a-zA-Z\x20.]*$", ErrorMessage = "O nome da build apenas aceita letras.")]
         [Display(Name ="Nome da Build")]
         public string Nome { get; set; }
 

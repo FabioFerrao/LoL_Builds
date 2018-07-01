@@ -35,6 +35,7 @@ namespace LoL_Builds.Models
         //genero
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         [StringLength(40)]
+        [RegularExpression("^(?![\x20.]+$)[a-zA-Z\x20.]*$", ErrorMessage = "O genero apenas aceita letras.")]
         [Display(Name = "Género")]
         public string Genero { get; set; }
 

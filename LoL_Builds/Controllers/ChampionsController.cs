@@ -58,17 +58,24 @@ namespace LoL_Builds.Controllers
             {
                 champion.Imagem = nomeImage;
             }
-
+            ViewBag.listaRoles = db.ChampRoles.ToList();
             string aux = form["checkRole"];
+            //if (aux == null)
+            //{
+            //    return View(champion);
+            //}
             ICollection<ChampRoles> lista = new List<ChampRoles> { };
-            var x = aux.Split(',');
-            foreach (string ids in x)
+            if (aux != null)
             {
-                ChampRoles champRole = db.ChampRoles.Find(Int32.Parse(ids));
-                lista.Add(champRole);
-                champRole.Champions.Add(champion);
+                var x = aux.Split(',');
+                foreach (string ids in x)
+                {
+                    ChampRoles champRole = db.ChampRoles.Find(Int32.Parse(ids));
+                    lista.Add(champRole);
+                    champRole.Champions.Add(champion);
+                }
+                champion.ChampRoles = lista;
             }
-            champion.ChampRoles = lista;
             if (ModelState.IsValid)
             {
                 try
@@ -152,8 +159,9 @@ namespace LoL_Builds.Controllers
 
                 }
             }
-            else {
-                
+            else
+            {
+
                 foreach (ChampRoles role in db.ChampRoles.ToList())
                 {
                     if (role.Champions.Contains(champion))

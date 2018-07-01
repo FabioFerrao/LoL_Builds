@@ -150,11 +150,16 @@ namespace LoL_Builds.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register([Bind(Include = "Nome,Genero,UserName")] Utilizadores utilizador, RegisterViewModel model, string DataNasc)
         {
+            //caso a data nao seja inserida pelo utilizador
+            if (DataNasc == "")
+            {
+                return View(model);
+            }
             //Comparacao com a data de "agora"
             int comparacao = DateTime.Compare(DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")), DateTime.Parse(DataNasc));
            
-            //caso a data nao seja inserida pelo utilizador ou caso a data seja superior ou igual à atual
-            if (DataNasc == "" || comparacao<=0) {
+            //caso a data seja superior ou igual à atual
+            if (comparacao<=0) {
                 return View(model);
             }
 
