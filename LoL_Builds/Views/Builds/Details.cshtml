@@ -76,7 +76,7 @@
                     <p class="p">@comment.Texto</p>
                 </div>
 
-                @if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador")))
+                @if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador") || User.Identity.Name==comment.Utilizador.UserName))
                 {
 
                     <div class="col-md-3" style="height:100px">

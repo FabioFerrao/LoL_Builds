@@ -60,10 +60,23 @@ namespace LoL_Builds.Controllers
         {
             return View();
         }
-
-        // POST: Utilizadores/Create
+        
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        ///     POST: Utilizadores/Create
+        ///     Metodo que cria o utlizador
+        /// </summary>
+        /// <param name="utilizador">
+        /// recebe o utilizador por parametro, mais propriamente o nome e genero,
+        /// com esses dados vai criar um utilizador adicionando mais alguns parametros
+        /// </param>
+        /// <param name="DataNasc">
+        /// recebe por parametro a data de nascimento do utilizador
+        /// </param>
+        /// <returns>
+        ///     retorna para o index depois de criar o utilizador
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Nome,Genero")] Utilizadores utilizador, string DataNasc)
@@ -115,9 +128,20 @@ namespace LoL_Builds.Controllers
             return View(utilizadores);
         }
 
-        // POST: Utilizadores/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        ///     POST: Utilizadores/Edit/5
+        ///     Metodo que edita utilizadores
+        /// </summary>
+        /// <param name="utilizador">
+        /// recebe o utilizador por parametro, mais propriamente o id, a data de nascimento, o nome, o genero e o username,
+        /// com esses dados vai editar o utilizador adicionando mais alguns parametros
+        /// </param>
+        /// <returns>
+        ///     retorna para o index depois de editar o utilizador
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,DataNascimento,Nome,Genero,UserName")] Utilizadores utilizador)
@@ -165,9 +189,19 @@ namespace LoL_Builds.Controllers
             return View(utilizador);
         }
 
-        // POST: Utilizadores/EditMe/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        ///     POST: Utilizadores/EditMe/5
+        ///     Metodo que serve para o utilizador logado editar os seus dados, para nao aceder aos dados dos outros utilizadores
+        /// </summary>
+        /// <param name="utilizador">
+        /// recebe o utilizador por parametro, mais propriamente o id, a data de nascimento, o nome, o genero e o username,
+        /// com esses dados vai editar o utilizador adicionando mais alguns parametros
+        /// </param>
+        /// <returns>
+        ///     retorna para o index depois de editar o utilizador
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditMe([Bind(Include = "ID,DataNascimento,Nome,Genero,UserName")] Utilizadores utilizador)
@@ -197,63 +231,23 @@ namespace LoL_Builds.Controllers
             return View(utilizador);
         }
 
-
-        // GET: Utilizadores/Delete/5
+       
+        /// <summary>
+        ///     GET: Utilizadores/Delete/5
+        ///     Metodo que retorna para o index dos utilizadores, pois não é permitido eliminar utilizadores por este controller
+        /// </summary>
+        /// <param name="id">
+        ///     id do utilizador para eliminação 
+        /// </param>
+        /// <returns>
+        /// retorna para o index dos utilizadores
+        /// </returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Utilizadores utilizadores = db.Utilizadores.Find(id);
-            //if (utilizadores == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(utilizadores);
             return RedirectToAction("Index");
         }
-
-        // POST: Utilizadores/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Utilizadores utilizador = db.Utilizadores.Find(id);
-
-            //eliminacao dos comentarios relativos a esse utilizador
-            while (utilizador.Comentarios.Count() != 0)
-            {
-                db.Comentarios.Remove(utilizador.Comentarios.First());
-            }
-
-            utilizador.Comentarios = new List<Comentarios> { };
-
-            //eliminacao das builds relativas a esse utilizador
-            while (utilizador.Builds.Count() != 0)
-            {
-
-                //eliminacao dos items associados a cada build
-                Builds build = db.Builds.Find(utilizador.Builds.First().ID);
-
-                while (build.Items.Count() != 0)
-                {
-                    build.Items.First().Builds.Remove(build);
-                    build.Items.Remove(build.Items.First());
-                }
-                build.Items = new List<Items> { };
-
-                db.Builds.Remove(utilizador.Builds.First());
-            }
-
-            utilizador.Builds = new List<Builds> { };
-
-            //eliminação do utilizador após a desassociação de tudo o que liga ao mesmo
-            db.Utilizadores.Remove(utilizador);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        
 
         protected override void Dispose(bool disposing)
         {

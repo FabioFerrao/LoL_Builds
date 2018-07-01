@@ -188,7 +188,7 @@ namespace LoL_Builds.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ModelState.AddModelError("", "Something failed.");
+            ModelState.AddModelError("", "Algo falhou.");
             return View();
         }
 
@@ -207,9 +207,17 @@ namespace LoL_Builds.Controllers
             }
             return View(user);
         }
-
-        //
-        // POST: /Users/Delete/5
+        
+        /// <summary>
+        ///     POST: /Users/Delete/5
+        ///     Metodo que elimina um utilizador, em ambos os "lados"
+        /// </summary>
+        /// <param name="id">
+        ///     id do utilizador que é para eliminar
+        /// </param>
+        /// <returns>
+        ///     retorna para o index, caso a eliminação seja aceite
+        /// </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)

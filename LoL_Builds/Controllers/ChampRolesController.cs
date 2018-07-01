@@ -35,87 +35,53 @@ namespace LoL_Builds.Controllers
             return View(champRoles);
         }
 
+        
+        /// <summary>
+        ///     GET: ChampRoles/Create     
+        ///     Metodo que retorna para o index das roles do champion, 
+        ///     pois não há necessidade da criação de novas roles, o seed já as tem todas
+        /// </summary>
+        /// <returns>
+        ///     retorna para o index das roles do champion
+        /// </returns>
         [Authorize]
-        // GET: ChampRoles/Create
         public ActionResult Create()
         {
-            return View();
+            return RedirectToAction("Index", "ChampRoles");
         }
 
-        // POST: ChampRoles/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Role")] ChampRoles champRoles)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ChampRoles.Add(champRoles);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(champRoles);
-        }
-
-        // GET: ChampRoles/Edit/5
+        /// <summary>
+        ///     GET: ChampRoles/Edit/5
+        ///     Metodo que retorna para o index das roles do champion, 
+        ///     pois não há necessidade da edição das roles
+        /// </summary>
+        /// <param name="id">
+        ///     id da role a editar
+        /// </param>
+        /// <returns>
+        ///  retorna para o index das roles do champion
+        /// </returns>
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ChampRoles champRoles = db.ChampRoles.Find(id);
-            if (champRoles == null)
-            {
-                return HttpNotFound();
-            }
-            return View(champRoles);
+            return RedirectToAction("Index", "ChampRoles");
         }
-
-        // POST: ChampRoles/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Role")] ChampRoles champRoles)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(champRoles).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(champRoles);
-        }
-
-        // GET: ChampRoles/Delete/5
+        
+        /// <summary>
+        ///     GET: ChampRoles/Delete/5
+        ///     Metodo que retorna para o index das roles do champion, 
+        ///     pois não há necessidade da eliminação das roles
+        /// </summary>
+        /// <param name="id">
+        ///     id da role a eliminar
+        /// </param>
+        /// <returns>
+        ///  retorna para o index das roles do champion
+        /// </returns>
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ChampRoles champRoles = db.ChampRoles.Find(id);
-            if (champRoles == null)
-            {
-                return HttpNotFound();
-            }
-            return View(champRoles);
+            return RedirectToAction("Index", "ChampRoles");
         }
-
-        // POST: ChampRoles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ChampRoles champRoles = db.ChampRoles.Find(id);
-            db.ChampRoles.Remove(champRoles);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

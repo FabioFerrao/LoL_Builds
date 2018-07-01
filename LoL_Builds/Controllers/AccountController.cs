@@ -142,9 +142,22 @@ namespace LoL_Builds.Controllers
         {
             return View();
         }
-
-        //
-        // POST: /Account/Register
+        /// <summary>
+        ///  POST: /Account/Register
+        ///  
+        /// </summary>
+        /// <param name="utilizador"> 
+            /// recebe o utilizador por parametro, mais propriamente o nome genero e username,
+            /// com esses dados vai criar um utilizador adicionando mais alguns parametros
+        /// </param>
+        /// <param name="model"></param>
+            /// recebe por parametro o modelo do RegisterViewModel, para poder criar um user no lado do Identity
+        /// <param name="DataNasc">
+            /// recebe por parametro a data de nascimento do utilizador
+        /// </param>
+        /// <returns>
+            ///  retorna uma view com o modelo caso tenha algum problema, retorna para o index caso crie o utilizador
+        /// </returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

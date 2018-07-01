@@ -43,10 +43,23 @@ namespace LoL_Builds.Controllers
         {
             return View();
         }
-
-        // POST: Items/Create
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        ///     POST: Items/Create
+        ///     Metodo que cria items
+        /// </summary>
+        /// <param name="item">
+        /// recebe o item por parametro, mais propriamente o id, o nome, a descricao e imagem,
+        /// com esses dados vai criar um item adicionando mais alguns parametros
+        /// </param>
+        /// <param name="uploadImage">
+        ///     recebe um ficheiro que o utilizador deu upload
+        /// </param>
+        /// <returns>
+        /// depois da criacao do item, retorna para o index dos items
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Nome,Descricao,Imagem")] Items item, HttpPostedFileBase uploadImage)
@@ -94,9 +107,24 @@ namespace LoL_Builds.Controllers
             return View(items);
         }
 
-        // POST: Items/Edit/5
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// POST: Items/Edit/5
+        /// Metodo que edita os atributos do item
+        /// </summary>
+        /// <param name="item">
+        /// recebe o item por parametro, mais propriamente o id, o nome, a descricao e imagem,
+        /// com esses dados vai criar um item adicionando mais alguns parametros
+        /// </param>
+        /// <param name="uploadImage">
+        ///     recebe um ficheiro que o utilizador deu upload
+        /// </param>
+        /// <returns>
+        /// depois da edicao do item, retorna para o index dos items
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Nome,Descricao,Imagem")] Items item, HttpPostedFileBase uploadImage)
@@ -130,47 +158,21 @@ namespace LoL_Builds.Controllers
 
             return View(item);
         }
-
-        // GET: Items/Delete/5
+        
+        /// <summary>
+        ///     GET: Items/Delete/5
+        ///     Metodo que retorna para o index dos items, pois não é permitido eliminar items
+        /// </summary>
+        /// <param name="id">
+        ///     id do item para eliminação 
+        /// </param>
+        /// <returns>
+        /// retorna para o index dos items
+        /// </returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Items items = db.Items.Find(id);
-            //if (items == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(items);
             return RedirectToAction("Index", "Items");
-        }
-
-        // POST: Items/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Items item = db.Items.Find(id);
-            string nomeImagem = item.Imagem;
-            try
-            {
-                System.IO.File.Delete(Path.Combine(Server.MapPath("~/Imagens/Items/"), nomeImagem));
-                db.Items.Remove(item);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception e)
-            {
-
-                ModelState.AddModelError("", "Ocorreu o seguinte erro: " + e.Message);
-            }
-
-            return View(item);
-
         }
 
         protected override void Dispose(bool disposing)

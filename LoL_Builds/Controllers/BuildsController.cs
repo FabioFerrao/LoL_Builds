@@ -37,7 +37,20 @@ namespace LoL_Builds.Controllers
             return View(builds);
         }
 
-        // POST: Builds/Details/5   
+
+        /// <summary>
+        ///     POST: Builds/Details/5
+        ///     Metodo para o utilizador comentar a build
+        /// </summary>
+        /// <param name="id">
+        /// id relativo à build que vai ser comentada
+        /// </param>
+        /// <param name="comentario">
+        /// o texto que o utilizador inseriu para comentar a build
+        /// </param>
+        /// <returns>
+        ///     Volta para os detalhes da build depois de comentar 
+        /// </returns>
         [HttpPost]
         public ActionResult Details(int id, string comentario)
         {
@@ -74,9 +87,23 @@ namespace LoL_Builds.Controllers
             return View();
         }
 
-        // POST: Builds/Create
+        // 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Builds/Create 
+        /// Metodo que cria builds
+        /// </summary>
+        /// <param name="build">
+        /// recebe a build por parametro, mais propriamente o id, nome,championsFK e UtilizadorFK,
+        /// com esses dados vai criar uma build adicionando mais alguns parametros
+        /// </param>
+        /// <param name="form">
+        /// o parametro form é passado para ir buscar os itens onde o check foi selecionado
+        /// </param>
+        /// <returns>
+        ///     depois da criacao da build, retorna para o index das builds
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Nome,ChampionsFK, UtilizadorFK")] Builds build, FormCollection form)
@@ -138,9 +165,20 @@ namespace LoL_Builds.Controllers
         // POST: Builds/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// POST: Builds/Edit/5
+        /// Metodo que recebe o formulario de uma build e altera os valores 
+        /// </summary>
+        /// <param name="formBuild">
+        /// recebe por parametro o formulario da build, para poder edita-lo 
+        /// </param>
+        /// <returns>
+        ///     Retorna para os detalhes da build caso a edicao seja aceite 
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(/*[Bind(Include = "ID,Nome,ChampionsFK")] Builds builds*/FormCollection formBuild)
+        public ActionResult Edit(FormCollection formBuild)
         {
             Builds builds = db.Builds.Find(Int32.Parse(formBuild["ID"]));
 
@@ -219,7 +257,17 @@ namespace LoL_Builds.Controllers
             }
         }
 
-        // POST: Builds/Delete/5
+
+        /// <summary>
+        ///     POST: Builds/Delete/5
+        ///     Metodo que elimina uma build
+        /// </summary>
+        /// <param name="id">
+        ///        id da build a eliminar
+        /// </param>
+        /// <returns>
+        ///     retorna para o index das builds
+        /// </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

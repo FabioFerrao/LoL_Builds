@@ -29,7 +29,6 @@ namespace LoL_Builds.Models
         public string Descricao { get; set; }
 
         //Imagem
-        [Required(ErrorMessage = "Imagem do item necessária")]
         public string Imagem { get; set; }
 
         //Ligacao N-N com as Builds
