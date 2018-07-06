@@ -26,14 +26,14 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Champions");
             }
-            Champions champions = db.Champions.Find(id);
-            if (champions == null)
+            Champions champion = db.Champions.Find(id);
+            if (champion == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Champions");
             }
-            return View(champions);
+            return View(champion);
         }
 
         // GET: Champions/Create
@@ -117,15 +117,15 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Champions");
             }
-            Champions champions = db.Champions.Find(id);
-            if (champions == null)
+            Champions champion = db.Champions.Find(id);
+            if (champion == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Champions");
             }
             ViewBag.listaRoles = db.ChampRoles.ToList();
-            return View(champions);
+            return View(champion);
         }
 
 
@@ -222,23 +222,6 @@ namespace LoL_Builds.Controllers
             ViewBag.listaRoles = db.ChampRoles.ToList();
             return View(champion);
         }
-
-        /// <summary>
-        ///     GET: Champions/Delete/5
-        ///     Metodo que retorna para o index dos champions, pois não é permitido eliminar champions
-        /// </summary>
-        /// <param name="id">
-        ///     id do champion para eliminação 
-        /// </param>
-        /// <returns>
-        /// retorna para o index dos champions
-        /// </returns>
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Delete(int? id)
-        {
-            return RedirectToAction("Index", "Champions");
-        }
-        
 
         protected override void Dispose(bool disposing)
         {

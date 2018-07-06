@@ -16,46 +16,21 @@ namespace LoL_Builds.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         
 
-        // GET: Comentarios/Create
-        public ActionResult Create()
-        {
-            ViewBag.BuildID = new SelectList(db.Builds, "ID", "Nome");
-            ViewBag.UserID = new SelectList(db.Utilizadores, "ID", "Nome");
-            return View();
-        }
 
-        // POST: Comentarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Texto,TimeStamp,UserID,BuildID")] Comentarios comentarios)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Comentarios.Add(comentarios);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.BuildID = new SelectList(db.Builds, "ID", "Nome", comentarios.BuildID);
-            ViewBag.UserID = new SelectList(db.Utilizadores, "ID", "Nome", comentarios.UserID);
-            return View(comentarios);
-        }
         
         // GET: Comentarios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Builds");
             }
-            Comentarios comentarios = db.Comentarios.Find(id);
-            if (comentarios == null)
+            Comentarios comment = db.Comentarios.Find(id);
+            if (comment == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Builds");
             }
-            return View(comentarios);
+            return View(comment);
         }
 
         // POST: Comentarios/Delete/5

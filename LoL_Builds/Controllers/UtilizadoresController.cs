@@ -36,80 +36,24 @@ namespace LoL_Builds.Controllers
             {
                 return HttpNotFound();
             }
-            return View(utilizadores);
+            
+            return PartialView(utilizadores);
         }
         // GET: Utilizadores/UtilizadoresDetails/5
         public ActionResult UtilizadoresDetails(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Utilizadores");
             }
-
             Utilizadores utilizador = db.Utilizadores.Find(id);
             if (utilizador == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Utilizadores");
             }
             return PartialView(utilizador);
         }
 
-        // GET: Utilizadores/Create
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Create()
-        {
-            return View();
-        }
-        
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
-        /// <summary>
-        ///     POST: Utilizadores/Create
-        ///     Metodo que cria o utlizador
-        /// </summary>
-        /// <param name="utilizador">
-        /// recebe o utilizador por parametro, mais propriamente o nome e genero,
-        /// com esses dados vai criar um utilizador adicionando mais alguns parametros
-        /// </param>
-        /// <param name="DataNasc">
-        /// recebe por parametro a data de nascimento do utilizador
-        /// </param>
-        /// <returns>
-        ///     retorna para o index depois de criar o utilizador
-        /// </returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,Genero")] Utilizadores utilizador, string DataNasc)
-        {
-            //Transformar a string num datetime
-            DateTime dataN = DateTime.Parse(DataNasc);
-            //determinar id do novo utilizador
-            int novoID = 0;
-            //proteger a criacao de um novo id, determinar o numero de utilizadores da tabela
-            if (db.Utilizadores.Count() == 0)
-            {
-                novoID = 1;
-            }
-            else
-            {
-                novoID = db.Utilizadores.Max(u => u.ID) + 1;
-            }
-            //atribuir o id do novo utilizador
-            utilizador.ID = novoID;
-
-            //atribuir a data de nascimento
-            utilizador.DataNascimento = dataN;
-
-            if (ModelState.IsValid)
-            {
-
-                db.Utilizadores.Add(utilizador);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(utilizador);
-        }
 
         // GET: Utilizadores/Edit/5
 
@@ -167,7 +111,7 @@ namespace LoL_Builds.Controllers
                 if (utilizador.UserName == User.Identity.Name) {
                     Session["nomeUser"] = utilizador.Nome;
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "UsersAdmin", new { userName = Session["UserEmail"] });
             }
             return View(utilizador);
         }
@@ -230,24 +174,6 @@ namespace LoL_Builds.Controllers
             }
             return View(utilizador);
         }
-
-       
-        /// <summary>
-        ///     GET: Utilizadores/Delete/5
-        ///     Metodo que retorna para o index dos utilizadores, pois não é permitido eliminar utilizadores por este controller
-        /// </summary>
-        /// <param name="id">
-        ///     id do utilizador para eliminação 
-        /// </param>
-        /// <returns>
-        /// retorna para o index dos utilizadores
-        /// </returns>
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Delete(int? id)
-        {
-            return RedirectToAction("Index");
-        }
-        
 
         protected override void Dispose(bool disposing)
         {

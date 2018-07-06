@@ -1,6 +1,6 @@
 ﻿@model LoL_Builds.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registar";
+    ViewBag.Title = "Registo";
 }
 
 <h2 style="color:white">@ViewBag.Title.</h2>
@@ -62,6 +62,7 @@
                 @Html.TextBoxFor(m => m.utilizador.Genero, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.utilizador.Genero, "", new { @class = "text-danger" })
             </div>
+
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

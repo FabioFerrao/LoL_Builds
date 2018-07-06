@@ -19,6 +19,7 @@ namespace LoL_Builds.Controllers
         public ActionResult Index()
         {
             var builds = db.Builds.Include(b => b.Champion);
+            builds = builds.OrderBy(b => b.Champion.Nome);
             return View(builds.ToList());
         }
 
@@ -27,14 +28,14 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Builds");
             }
-            Builds builds = db.Builds.Find(id);
-            if (builds == null)
+            Builds build = db.Builds.Find(id);
+            if (build == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Builds");
             }
-            return View(builds);
+            return View(build);
         }
 
 
@@ -150,16 +151,16 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Builds");
             }
-            Builds builds = db.Builds.Find(id);
-            if (builds == null)
+            Builds build = db.Builds.Find(id);
+            if (build == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Builds");
             }
             ViewBag.listaItems = db.Items.ToList();
-            ViewBag.ChampionsFK = new SelectList(db.Champions, "ID", "Nome", builds.ChampionsFK);
-            return View(builds);
+            ViewBag.ChampionsFK = new SelectList(db.Champions, "ID", "Nome", build.ChampionsFK);
+            return View(build);
         }
 
         // POST: Builds/Edit/5
@@ -237,17 +238,17 @@ namespace LoL_Builds.Controllers
         // GET: Builds/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Builds");
+            }
             Builds build = db.Builds.Find(id);
+            if (build == null)
+            {
+                return RedirectToAction("Index", "Builds");
+            }
             if (User.Identity.Name == build.Utilizador.UserName || User.IsInRole("Administrador") || User.IsInRole("Moderador"))
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                if (build == null)
-                {
-                    return HttpNotFound();
-                }
                 return View(build);
             }
             else

@@ -28,7 +28,7 @@ namespace LoL_Builds.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A nova password tem de ter pelo menos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Nova password")]
         public string NewPassword { get; set; }
@@ -41,13 +41,13 @@ namespace LoL_Builds.Models
 
     public class ChangePasswordViewModel
     {
-        [Required(ErrorMessage = "A Password actual é necessária.")]
+        [Required(ErrorMessage = "A password actual é necessária.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password Actual")]
+        [Display(Name = "Password actual")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage = "A Nova password é necessária.")]
-        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres", MinimumLength = 6)]
+        [Required(ErrorMessage = "A nova password é necessária.")]
+        [StringLength(100, ErrorMessage = "A nova password tem de ter pelo menos {2} caracteres", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Nova password")]
         public string NewPassword { get; set; }

@@ -1,4 +1,4 @@
-﻿using LoL_Builds.Models;
+﻿    using LoL_Builds.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -58,21 +58,38 @@ namespace LoL_Builds.Controllers
         // GET: /Users/
         public async Task<ActionResult> Index()
         {
+
             return View(await UserManager.Users.ToListAsync());
         }
 
         //
         // GET: /Users/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(string userName)
         {
-            if (id == null)
+
+            if (userName == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var user = await UserManager.FindByIdAsync(id);
 
+            var user = UserManager.FindByEmail(userName);
+            if (user == null) {
+                return RedirectToAction("Index", "Utilizadores");
+            }
+
+            var utilizadorArray = db.Utilizadores.Where(u => u.UserName.Equals(user.UserName));
+            var i = 0;
+            foreach (var u in utilizadorArray)
+            {
+                i = u.ID;
+            }
+            Session["UtilID"] = i;
             ViewBag.RoleNames = await UserManager.GetRolesAsync(user.Id);
 
+            var id = user.Id;
+            Session["UserID"] = id;
+            Session["UserEmail"] = userName;
+            Session["MyEmail"] = User.Identity.GetUserName();
             return View(user);
         }
 
@@ -131,6 +148,10 @@ namespace LoL_Builds.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var user = await UserManager.FindByIdAsync(id);
+            if (user.Email == User.Identity.GetUserName())
+            {
+                return RedirectToAction("Details", "UsersAdmin", new { userName = Session["UserEmail"] });
+            }
             if (user == null)
             {
                 return HttpNotFound();
@@ -186,7 +207,7 @@ namespace LoL_Builds.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "UsersAdmin", new { userName = Session["UserEmail"] });
             }
             ModelState.AddModelError("", "Algo falhou.");
             return View();
@@ -201,13 +222,17 @@ namespace LoL_Builds.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var user = await UserManager.FindByIdAsync(id);
+            if (user.Email == User.Identity.GetUserName())
+            {
+                return RedirectToAction("Details", "UsersAdmin", new { userName = Session["UserEmail"] });
+            }
             if (user == null)
             {
                 return HttpNotFound();
             }
             return View(user);
         }
-        
+
         /// <summary>
         ///     POST: /Users/Delete/5
         ///     Metodo que elimina um utilizador, em ambos os "lados"
@@ -284,7 +309,7 @@ namespace LoL_Builds.Controllers
                 }
 
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Utilizadores");
             }
             return View();
         }

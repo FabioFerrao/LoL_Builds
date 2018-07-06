@@ -27,14 +27,14 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Items");
             }
-            Items items = db.Items.Find(id);
-            if (items == null)
+            Items item = db.Items.Find(id);
+            if (item == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Items");
             }
-            return View(items);
+            return View(item);
         }
 
         // GET: Items/Create
@@ -97,14 +97,14 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Items");
             }
-            Items items = db.Items.Find(id);
-            if (items == null)
+            Items item = db.Items.Find(id);
+            if (item == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Items");
             }
-            return View(items);
+            return View(item);
         }
 
         
@@ -157,22 +157,6 @@ namespace LoL_Builds.Controllers
             }
 
             return View(item);
-        }
-        
-        /// <summary>
-        ///     GET: Items/Delete/5
-        ///     Metodo que retorna para o index dos items, pois não é permitido eliminar items
-        /// </summary>
-        /// <param name="id">
-        ///     id do item para eliminação 
-        /// </param>
-        /// <returns>
-        /// retorna para o index dos items
-        /// </returns>
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Delete(int? id)
-        {
-            return RedirectToAction("Index", "Items");
         }
 
         protected override void Dispose(bool disposing)

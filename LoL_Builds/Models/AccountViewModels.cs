@@ -74,7 +74,7 @@ namespace LoL_Builds.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirmar password")]
         [Compare("Password", ErrorMessage = "A nova password e a confirmação não são iguais.")]
         public string ConfirmPassword { get; set; }
 
@@ -96,7 +96,7 @@ namespace LoL_Builds.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirmar password")]
         [Compare("Password", ErrorMessage = "A nova password e a confirmação não são iguais.")]
         public string ConfirmPassword { get; set; }
 

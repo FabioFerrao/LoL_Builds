@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-@* ITENS UTILIZADOS NA BUILD *@
+@* ITEMS UTILIZADOS NA BUILD *@
 <div class="row" style="display:flex;color:white">
 
     @if (Model.Items.Count() != 0)
@@ -110,11 +110,11 @@
 
 
 <div class="row">
-    <a class="btn btn-default" href=@Url.Action("Index", "Builds")>Voltar às Builds</a>
+    <a class="btn btn-default" href=@Url.Action("Index", "Builds")>Voltar às builds</a>
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Moderador") || User.Identity.Name == Model.Utilizador.UserName)
     {
-        <a class="btn btn-primary" href=@Url.Action("Edit", "Builds", new {id= Model.ID})>Editar Build</a>
+        <a class="btn btn-primary" href=@Url.Action("Edit", "Builds", new {id= Model.ID})>Editar build</a>
         @Html.ActionLink("Eliminar", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" })
     }
 

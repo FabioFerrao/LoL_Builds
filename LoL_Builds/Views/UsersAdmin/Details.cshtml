@@ -3,27 +3,28 @@
 @{
     ViewBag.Title = Model.Email;
 }
+@if (Model.Email.Equals(Session["MyEmail"]))
+{
+    <p class="text-danger">Não se consegue eliminar ou editar as suas próprias permissões</p>
+}
+<div>
+    @Html.Action("Details", "Utilizadores", new { id = Session["UtilID"] })
 
-<h2 style="color:white">@Model.Email</h2>
-
+</div>
 <div style="color:white">
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserName)
+            Email associado
         </dt>
         <dd>
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.Roles)
+            Role
         </dt>
         <dd>
-            @if (ViewBag.RoleNames.Count == 0)
-            {
-                <p>Este utilizador não tem roles.</p>
-            }
             @foreach (var item in ViewBag.RoleNames)
             {
                 @Html.DisplayFor(i => item)
@@ -32,8 +33,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) |
-    @Html.ActionLink("Voltar aos Utilizadores", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Editar permissões", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Eliminar utilizador", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) |
+    @Html.ActionLink("Voltar aos utilizadores", "Index", "Utilizadores", null, new { @class = "btn btn-default" })
+
 </p>
 

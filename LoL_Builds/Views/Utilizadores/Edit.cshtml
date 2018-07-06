@@ -56,7 +56,7 @@
 }
 
 <div>
-    @Html.ActionLink("Voltar aos Utilizadores", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Voltar aos detalhes", "Details", "UsersAdmin", new { userName = Session["UserEmail"] }, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

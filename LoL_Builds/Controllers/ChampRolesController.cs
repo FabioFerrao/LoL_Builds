@@ -25,62 +25,16 @@ namespace LoL_Builds.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "ChampRoles");
             }
-            ChampRoles champRoles = db.ChampRoles.Find(id);
-            if (champRoles == null)
+            ChampRoles champRole = db.ChampRoles.Find(id);
+            if (champRole == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "ChampRoles");
             }
-            return View(champRoles);
+            return View(champRole);
         }
 
-        
-        /// <summary>
-        ///     GET: ChampRoles/Create     
-        ///     Metodo que retorna para o index das roles do champion, 
-        ///     pois não há necessidade da criação de novas roles, o seed já as tem todas
-        /// </summary>
-        /// <returns>
-        ///     retorna para o index das roles do champion
-        /// </returns>
-        [Authorize]
-        public ActionResult Create()
-        {
-            return RedirectToAction("Index", "ChampRoles");
-        }
-
-        /// <summary>
-        ///     GET: ChampRoles/Edit/5
-        ///     Metodo que retorna para o index das roles do champion, 
-        ///     pois não há necessidade da edição das roles
-        /// </summary>
-        /// <param name="id">
-        ///     id da role a editar
-        /// </param>
-        /// <returns>
-        ///  retorna para o index das roles do champion
-        /// </returns>
-        public ActionResult Edit(int? id)
-        {
-            return RedirectToAction("Index", "ChampRoles");
-        }
-        
-        /// <summary>
-        ///     GET: ChampRoles/Delete/5
-        ///     Metodo que retorna para o index das roles do champion, 
-        ///     pois não há necessidade da eliminação das roles
-        /// </summary>
-        /// <param name="id">
-        ///     id da role a eliminar
-        /// </param>
-        /// <returns>
-        ///  retorna para o index das roles do champion
-        /// </returns>
-        public ActionResult Delete(int? id)
-        {
-            return RedirectToAction("Index", "ChampRoles");
-        }
         
         protected override void Dispose(bool disposing)
         {

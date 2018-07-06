@@ -44,8 +44,8 @@ namespace LoL_Builds.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "A sua password foi estabelecida."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "A autenticação de dois fatores foi estabelecida."
                 : message == ManageMessageId.Error ? "Ocorreu um erro."
-                : message == ManageMessageId.AddPhoneSuccess ? "Foi adicionado o seu Contacto."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Foi removido o seu Contacto."
+                : message == ManageMessageId.AddPhoneSuccess ? "Foi adicionado o seu contacto."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Foi removido o seu contacto."
                 : "";
             var email = User.Identity.GetUserName();
             var utilizadorArray = db.Utilizadores.Where(u => u.UserName.Equals(email));

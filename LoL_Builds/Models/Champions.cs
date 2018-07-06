@@ -23,7 +23,7 @@ namespace LoL_Builds.Models
         //Nome
         [Required(ErrorMessage = "Nome do champion necessário")]
         [RegularExpression("^(?![\x20.]+$)[a-zA-Z'\x20.]*$", ErrorMessage = "O nome do champion apenas aceita letras.")]
-        [Display(Name = "Nome do Champion")]
+        [Display(Name = "Nome do champion")]
         public string Nome { get; set; }
 
         //Descricao
