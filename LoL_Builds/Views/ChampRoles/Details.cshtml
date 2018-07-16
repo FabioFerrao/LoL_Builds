@@ -64,12 +64,3 @@
         </div>
     }
 </div>
-@{
-    if (Request.IsAuthenticated && User.IsInRole("Administrador"))
-    {
-        <div class="row">
-            <a class="btn btn-default" href=@Url.Action("Index", "ChampRoles")>Voltar à gestão</a>
-        </div>
-
-    }
-}
