@@ -12,9 +12,16 @@
         @Html.ActionLink("Criar build", "Create", null, new { @class = "btn btn-default" })
     </p>
 }
+    <br />
+<form action="@Url.Action("Search", "Builds")" method="get">
+
+    <input type="search" name="search" @*value="Pesquisar por champion"*@ placeholder="Pesquisar por champion" />
+    <input type="submit" value="Pesquisar" />
+</form>
+<br />
 <table class="table table-hover" style="color:white">
     <tr style="background-color:#343434; display:none">
-        
+
         <th>
             @Html.DisplayNameFor(model => model.Champion.Nome)
         </th>
@@ -37,10 +44,10 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @if (Request.IsAuthenticated && (User.IsInRole("Administrador")|| User.IsInRole("Moderador") || User.Identity.Name == item.Utilizador.UserName))
+                @if (Request.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("Moderador") || User.Identity.Name == item.Utilizador.UserName))
                 {
                     <p>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ID}, new { @class = "btn btn-default" }) 
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-default" })
                         @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
                     </p>
                 }

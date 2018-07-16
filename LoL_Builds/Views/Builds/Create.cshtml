@@ -1,6 +1,8 @@
 ﻿@model LoL_Builds.Models.Builds
 
 @{
+    /**/
+
     ViewBag.Title = "Criar";
 }
 
@@ -50,14 +52,14 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Criar build" class="btn btn-primary" />
-            </div>
-            <div class="col-md-offset-2 col-md-2" style="margin-top:10px">
-                @Html.ActionLink("Voltar às builds", "Index", null, new { @class = "btn btn-default" })
-            </div>
         </div>
 
+
+    </div>
+
+    <div style="color:white;">
+        <input type="submit" value="Criar build" class="btn btn-primary" /> |
+        @Html.ActionLink("Voltar às builds", "Index", null, new { @class = "btn btn-default" })
     </div>
 }
 

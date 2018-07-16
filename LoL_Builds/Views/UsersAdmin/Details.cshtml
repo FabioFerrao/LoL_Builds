@@ -32,10 +32,17 @@
         </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar permissões", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Eliminar utilizador", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) |
+@if (Model.Email.Equals(Session["MyEmail"]))
+{
     @Html.ActionLink("Voltar aos utilizadores", "Index", "Utilizadores", null, new { @class = "btn btn-default" })
+}
+else
+{
+    <p>
+        @Html.ActionLink("Editar permissões", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+        @Html.ActionLink("Eliminar utilizador", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) |
+        @Html.ActionLink("Voltar aos utilizadores", "Index", "Utilizadores", null, new { @class = "btn btn-default" })
 
-</p>
+    </p>
+}
 

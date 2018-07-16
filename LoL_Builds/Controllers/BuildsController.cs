@@ -18,9 +18,20 @@ namespace LoL_Builds.Controllers
         // GET: Builds
         public ActionResult Index()
         {
+
             var builds = db.Builds.Include(b => b.Champion);
             builds = builds.OrderBy(b => b.Champion.Nome);
             return View(builds.ToList());
+
+        }
+        // POST: Builds
+        [HttpGet]
+        public ActionResult Search(string search)
+        {
+            var builds = db.Builds.Where(bb => bb.Champion.Nome.Contains(search)).OrderBy(b => b.Champion.Nome).ToList();
+
+            return View("Index", builds);
+
         }
 
         // GET: Builds/Details/5
